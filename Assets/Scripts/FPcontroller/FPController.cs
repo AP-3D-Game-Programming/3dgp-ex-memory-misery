@@ -8,6 +8,10 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(CharacterController))]
 public class FPController : MonoBehaviour
 {
+    [Header("Animation")]
+    [Tooltip("Sleep hier je Y-Bot in")]
+    [SerializeField] Animator characterAnimator;
+
     [Header("Movement parameters")]
     public float MaxSpeed => SprintInput ? SprintSpeed : WalkSpeed;
     public float Acceleration = 15f;
@@ -81,7 +85,11 @@ public class FPController : MonoBehaviour
     void Update()
     {
         MoveUpdate();
-       LookUpdate();
+        AnimationUpdate();
+    }
+    void LateUpdate()
+    {
+        LookUpdate();
         CameraUpdate();
     }
     public void TryJump()
@@ -91,6 +99,10 @@ public class FPController : MonoBehaviour
             return;
         }
         VerticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y*GravityScale);
+        if (characterAnimator != null)
+        {
+            characterAnimator.SetTrigger("Jump");
+        }
     }
 
     void MoveUpdate()
@@ -152,6 +164,14 @@ public class FPController : MonoBehaviour
         }
         fpCamera.Lens.FieldOfView = Mathf.Lerp(fpCamera.Lens.FieldOfView, targetFOV, CameraFOVSmoothing * Time.deltaTime);
 
+    }
+    void AnimationUpdate()
+    {
+        if (characterAnimator == null) return;
+
+        // Stuur waarden naar de Animator Controller
+        characterAnimator.SetFloat("Speed", CurrentSpeed);
+        characterAnimator.SetBool("IsGrounded", IsGrounded);
     }
 
 }

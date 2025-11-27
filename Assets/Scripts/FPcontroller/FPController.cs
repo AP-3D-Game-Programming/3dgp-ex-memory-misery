@@ -41,10 +41,7 @@ public class FPController : MonoBehaviour
     public float CurrentPitch
     {
         get => currentPitch;
-        set
-        {
-            currentPitch = Mathf.Clamp(value, -PitchLimit, PitchLimit);
-        }
+        set { currentPitch = Mathf.Clamp(value, -PitchLimit, PitchLimit); }
     }
     [Header("Camera Parameters")]
     [SerializeField] float CameraNormalFOV = 60f;

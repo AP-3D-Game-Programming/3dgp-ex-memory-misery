@@ -1,16 +1,15 @@
 **Titel**: Memory Misery
 
-**Genre**: Psychological Horro
+**Genre**: First-Person Survival, Psychological Horror
 
-**Beschrijving**: Kruip in de huid van een ouder die lijdt aan Münchhausen. In dit spel word je gedwongen om de gruwelijke daden uit het verleden te herbeleven die de ziekte van je kind hebben veroorzaakt. Elke herinnering is een leugen die je jezelf vertelde, en elk object onthult het bewijs.
+**Beschrijving**: In Memory Misery speel je als een jong kind dat gevangen zit in een verlaten orphanage. Je lijdt aan geheugenverlies en weet niet hoe je in het weeshuis terecht bent gekomen. Door het gebouw te verkennen, aanwijzingen te verzamelen en de caretaker te ontwijken, kom je langzaam de waarheid achter jouw verleden en wat er gebeurt is.
 
-**Gameplay loop**: De gameplay volgt een repetitieve loop die de dader vastzet in de waan.
-1. Je wordt wakker in de stilte van de kinderkamer
-2. Je vindt een onschuldig object
-3. Je wordt getrokken in een flashback naar de gruweldaad
-- Het leugen: Je motiveert de daad met een leugen
-- De puzzel: Je wordt gedwongen tot deze gruweldaad
-4. Je ontwaakt terug in de kinderkamer met het bewijs en het 'onschuldig' object is vervangen door het bewijs
-5. Na de belevingen komt de eind confrontatie
+**Gameplay loop**: De gameplay volgt een repetitieve loop die de speler gelimiteerd tijd geeft om  de spanning hoog te houden.
+1. Je wordt wakker in de stilte van de kinderkamer.
+2. Je verkent de verschillende kamers in het weeshuis.
+3. Je zoek naar clues en objecten die je kan gebruiken om het mysterie te ontrafelen.
+4. Er is een caretaker jaagt je op: je moet haar ontwijken.
+4. Door de uitgang te bereiken met voldoende bewijs kun je het weeshuis ontsnappen.
 
-**USP**: Door een goed verhaal en interacties proberen we de speler schrik aan te jagen. We brengen ze naar verschillende scenes tot uiteindelijk de ultieme climax komt.
+**USP**: Dit is een game met elementen uit "The Nun"-game maar met een volledig uniek en emotioneel verhaal dat draait rond kindermishandeling, trauma en geheugenverlies.
+

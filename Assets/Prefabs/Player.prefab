@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab152821a9df784f81ca7991e932579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FPController
+  characterAnimator: {fileID: 0}
   Acceleration: 20
   WalkSpeed: 3.5
   SprintSpeed: 8

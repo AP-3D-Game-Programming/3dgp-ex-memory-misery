@@ -14,6 +14,17 @@ public class EnemyAI : MonoBehaviour
     public Transform enemyEyes;    
     public LayerMask obstacleMask; // Wat blokkeert 
 
+    [Header("Geluid: Achtervolging")] 
+    public AudioSource chaseMusicSource; 
+    public float musicFadeSpeed = 2f;
+
+    [Header("Geluid: Voetstappen")] 
+    public AudioSource stepSource;     
+    public AudioClip[] steps;
+    public float stepRateWalk = 0.6f;
+    public float stepRateRun = 0.3f;
+    private float stepTimer;
+
     [Header("Gedrag Instellingen")]
     public float patrolSpeed = 1.5f;
     public float chaseSpeed = 5f;
@@ -50,6 +61,12 @@ public class EnemyAI : MonoBehaviour
 
         if (playerScript == null && playerTarget != null)
             playerScript = playerTarget.GetComponent<FPController>();
+
+        if (chaseMusicSource != null)
+        {
+            chaseMusicSource.volume = 0;
+            chaseMusicSource.Play(); 
+        }
     }
 
     void Update()
@@ -59,6 +76,11 @@ public class EnemyAI : MonoBehaviour
         {
             enemyAnimator.SetFloat("Speed", agent.velocity.magnitude);
         }
+
+        if (enemyAnimator != null) enemyAnimator.SetFloat("Speed", agent.velocity.magnitude);
+        HandleFootsteps();
+        HandleMusic();
+
         bool seesPlayer = CanSeePlayer();
         bool hearsPlayer = CanHearPlayer();
 
@@ -94,6 +116,40 @@ public class EnemyAI : MonoBehaviour
             case State.Chasing:
                 ChaseBehavior();
                 break;
+        }
+    }
+    void HandleMusic()
+    {
+        if (chaseMusicSource == null) return;
+
+        float targetVolume = 0f;
+
+        if (currentState == State.Chasing)
+        {
+            targetVolume = 1f;
+        }
+
+        chaseMusicSource.volume = Mathf.Lerp(chaseMusicSource.volume, targetVolume, Time.deltaTime * musicFadeSpeed);
+    }
+
+    void HandleFootsteps()
+    {
+        // Speel alleen geluid als hij beweegt
+        if (agent.velocity.magnitude > 0.1f)
+        {
+            // Bepaal snelheid van stappen
+            float interval = (currentState == State.Chasing) ? stepRateRun : stepRateWalk;
+
+            stepTimer -= Time.deltaTime;
+            if (stepTimer <= 0)
+            {
+                if (stepSource != null && steps.Length > 0)
+                {
+                    stepSource.pitch = Random.Range(0.8f, 1.1f); 
+                    stepSource.PlayOneShot(steps[Random.Range(0, steps.Length)]);
+                }
+                stepTimer = interval;
+            }
         }
     }
     void PatrolBehavior()

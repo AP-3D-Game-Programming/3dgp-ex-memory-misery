@@ -8,8 +8,10 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(AudioSource))] // Voegt automatisch een AudioSource toe voor voetstappen
 public class FPController : MonoBehaviour
 {
+    [Header("Status")]
+    public bool isHidden = false;
+
     [Header("Animation")]
-    [Tooltip("Sleep hier je Y-Bot in")]
     [SerializeField] Animator characterAnimator;
 
     [Header("Movement parameters")]
@@ -38,15 +40,21 @@ public class FPController : MonoBehaviour
     [SerializeField] float JumpHeight = 2f;
 
     [Header("Looking parameters")]
-    public Vector2 LookSen = new Vector2(0.1f, 0.1f);
+    public Vector2 LookSensitivity = new Vector2(2f, 2f);
     public float PitchLimit = 85f;
-    [SerializeField] public float currentPitch = 0f;
 
+    [Range(0.0f, 0.1f)]
+    public float LookSmoothing = 0.005f;
+
+    private Vector2 currentLookInput;
+    private Vector2 lookInputVelocity;
+    [SerializeField] public float currentPitch = 0f;
     public float CurrentPitch
     {
         get => currentPitch;
         set { currentPitch = Mathf.Clamp(value, -PitchLimit, PitchLimit); }
     }
+    private float currentYaw = 0f; 
 
     [Header("Camera Parameters")]
     [SerializeField] float CameraNormalFOV = 60f;
@@ -104,10 +112,13 @@ public class FPController : MonoBehaviour
 
     void Update()
     {
-        HandleStamina();  
-        MoveUpdate();
-        AnimationUpdate();
-        HandleFootsteps(); 
+        HandleStamina();
+        if (!isHidden)
+        {
+            MoveUpdate();
+            AnimationUpdate();
+            HandleFootsteps();
+        }
     }
 
     void LateUpdate()
@@ -167,6 +178,12 @@ public class FPController : MonoBehaviour
 
     void MoveUpdate()
     {
+        if (isHidden)
+        {
+            CurrentVelocity = Vector3.zero;
+            CurrentSpeed = 0f;
+            return;
+        }
         Vector3 motion = transform.forward * MoveInput.y + transform.right * MoveInput.x;
         motion.y = 0f;
         motion.Normalize();
@@ -193,10 +210,33 @@ public class FPController : MonoBehaviour
 
     void LookUpdate()
     {
-        Vector2 input = new Vector2(LookInput.x * LookSen.x, LookInput.y * LookSen.y);
-        CurrentPitch -= input.y;
-        fpCamera.transform.localRotation = Quaternion.Euler(currentPitch, 0f, 0f);
-        transform.Rotate(Vector3.up * input.x);
+        currentLookInput = Vector2.SmoothDamp(currentLookInput, LookInput, ref lookInputVelocity, LookSmoothing);
+        Vector2 input = currentLookInput * LookSensitivity;
+
+        currentPitch -= input.y;
+        float pitchMin = isHidden ? -30f : -PitchLimit;
+        float pitchMax = isHidden ? 30f : PitchLimit;
+        currentPitch = Mathf.Clamp(currentPitch, pitchMin, pitchMax);
+
+        if (isHidden)
+        {
+            currentYaw += input.x;
+            currentYaw = Mathf.Clamp(currentYaw, -45f, 45f);
+            if (fpCamera != null)
+            {
+                fpCamera.transform.localRotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
+            }
+        }
+        else
+        {
+            // Normaal gedrag: Draai het hele lichaam
+            currentYaw = Mathf.Lerp(currentYaw, 0f, Time.deltaTime * 10f);
+            if (fpCamera != null)
+            {
+                fpCamera.transform.localRotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
+            }
+            transform.Rotate(Vector3.up * input.x);
+        }
     }
 
     void CameraUpdate()
@@ -207,8 +247,17 @@ public class FPController : MonoBehaviour
 
     void AnimationUpdate()
     {
+
         if (characterAnimator == null) return;
-        characterAnimator.SetFloat("Speed", CurrentSpeed);
-        characterAnimator.SetBool("IsGrounded", IsGrounded);
+        if (isHidden)
+        {
+            characterAnimator.SetFloat("Speed", 0f);
+            characterAnimator.SetBool("IsGrounded", true);
+        }
+        else
+        {
+            characterAnimator.SetFloat("Speed", CurrentSpeed);
+            characterAnimator.SetBool("IsGrounded", IsGrounded);
+        }
     }
 }

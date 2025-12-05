@@ -54,7 +54,8 @@ public class EnemyAI : MonoBehaviour
     private Vector3 randomDestination;
     private bool isJumpscaring = false;
 
-    void Start()
+
+        void Start()
     {
         currentState = State.Patrolling;
         FindNewPatrolPoint();
@@ -72,6 +73,15 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         if (isJumpscaring) return;
+        if (playerScript.isHidden)
+        {
+            currentState = State.Patrolling;
+            if (agent.remainingDistance < 1f)
+            {
+                FindNewPatrolPoint();
+            }
+            return; 
+        }
         if (enemyAnimator != null)
         {
             enemyAnimator.SetFloat("Speed", agent.velocity.magnitude);
@@ -164,7 +174,7 @@ public class EnemyAI : MonoBehaviour
     bool CanHearPlayer()
     {
         if (playerTarget == null || playerScript == null) return false;
-
+        if (playerScript.isHidden) return false;
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
 
         
@@ -216,7 +226,7 @@ public class EnemyAI : MonoBehaviour
     bool CanSeePlayer()
     {
         if (playerTarget == null) return false;
-
+        if (playerScript.isHidden) return false;
         Vector3 dirToPlayer = (playerTarget.position - enemyEyes.position).normalized;
         float distanceToPlayer = Vector3.Distance(enemyEyes.position, playerTarget.position);
 

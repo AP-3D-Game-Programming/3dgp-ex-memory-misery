@@ -2,52 +2,92 @@ using UnityEngine;
 
 public class DoorInteraction : MonoBehaviour
 {
-    public float openAngle = 90f;
-    public float openSpeed = 2f;
-    public bool isOpen = false;
+    [Header("Door Settings")]
+    [SerializeField] private float openAngle = -90f;
+    [SerializeField] private float openSpeed = 2f;
 
+    [Header("Interaction Settings")]
+    [SerializeField] private float interactionDistance = 3f;
+    [SerializeField] private KeyCode interactionKey = KeyCode.R;
+
+    private Camera playerCamera;
     private Quaternion closedRotation;
-    private Quaternion openRotation;
-
+    private Quaternion targetRotation;
+    private bool isOpen = false;
+    private bool isRotating = false;
     private bool playerInRange = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        closedRotation = transform.rotation;
-        openRotation = Quaternion.Euler(transform.eulerAngles + new Vector3(0, openAngle, 0));
 
+    private void Start()
+    {
+        playerCamera = Camera.main;
+        if (playerCamera == null)
+        {
+            Debug.LogError("No main camera found!");
+            return;
+        }
+
+        closedRotation = transform.rotation;
+        targetRotation = closedRotation;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        if (playerCamera == null)
         {
-            isOpen = !isOpen;
+            return;
+
         }
-        if (isOpen)
+        float distance = Vector3.Distance(playerCamera.transform.position, transform.position);
+        playerInRange = distance <= interactionDistance;
+
+        if (playerInRange && Input.GetKeyDown(interactionKey) && !isRotating)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, openRotation, Time.deltaTime * openSpeed);
+            Debug.Log("E button pressed");
+
+            ToggleDoor();
+        }
+        if (isRotating)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * openSpeed);
+
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
+            {
+                transform.rotation = targetRotation;
+                isRotating = false;
+
+                Debug.Log("Door finished moving");
+            }
+        }
+    }
+
+    void ToggleDoor()
+    {
+        if (!isOpen)
+        {
+            Vector3 doorToPlayer = (playerCamera.transform.position - transform.position).normalized;
+            Vector3 doorForward = transform.forward;
+
+            float dot = Vector3.Dot(doorForward, doorToPlayer);
+
+            float angle = dot > 0 ? openAngle : -openAngle;
+            targetRotation = closedRotation * Quaternion.Euler(0, angle, 0);
+
+            isOpen = true;
         }
         else
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, closedRotation, Time.deltaTime * openSpeed);
+            targetRotation = closedRotation;
+            isOpen = false;
         }
+        isRotating = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnDrawGizmosSelected()
     {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player in range");
-            playerInRange = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-        }
+        Gizmos.color = playerInRange ? Color.green : Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, interactionDistance);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, transform.forward * 2f);
     }
 }

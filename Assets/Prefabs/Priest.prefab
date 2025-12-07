@@ -1862,7 +1862,7 @@ MonoBehaviour:
   patrolSpeed: 1.5
   chaseSpeed: 4.5
   patrolRadius: 20
-  viewDistance: 10
+  viewDistance: 7
   viewAngle: 180
   currentNoiseRadius: 0
   hearRangeIdle: 0

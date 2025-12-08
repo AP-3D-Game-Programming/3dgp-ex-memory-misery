@@ -22,9 +22,9 @@ public class FPController : MonoBehaviour
     // Checkt nu ook of je nog stamina hebt
     public float MaxSpeed => IsSprintingAllowed ? SprintSpeed : WalkSpeed;
 
-    [Header("Stamina")] 
+    [Header("Stamina")]
     public float maxStamina = 100f;
-    public float staminaDrain = 20f; 
+    public float staminaDrain = 20f;
     public float staminaRegen = 10f;
     [SerializeField] private float currentStamina;
 
@@ -54,7 +54,7 @@ public class FPController : MonoBehaviour
         get => currentPitch;
         set { currentPitch = Mathf.Clamp(value, -PitchLimit, PitchLimit); }
     }
-    private float currentYaw = 0f; 
+    private float currentYaw = 0f;
 
     [Header("Camera Parameters")]
     [SerializeField] float CameraNormalFOV = 60f;
@@ -73,14 +73,14 @@ public class FPController : MonoBehaviour
     public Vector2 LookInput;
     public bool SprintInput;
 
-    [Header("Audio: Ademhaling")] 
-    public AudioSource breathSource;  
+    [Header("Audio: Ademhaling")]
+    public AudioSource breathSource;
     public AudioClip heavyBreathSound;
     [Range(0, 1)] public float maxBreathVolume = 0.8f;
 
-    [Header("Audio: Voetstappen")] 
-    public AudioSource stepSource;    
-    public AudioClip[] footstepSounds; 
+    [Header("Audio: Voetstappen")]
+    public AudioSource stepSource;
+    public AudioClip[] footstepSounds;
     public float stepIntervalWalk = 0.5f;
     public float stepIntervalSprint = 0.3f;
     private float stepTimer;
@@ -258,6 +258,15 @@ public class FPController : MonoBehaviour
         {
             characterAnimator.SetFloat("Speed", CurrentSpeed);
             characterAnimator.SetBool("IsGrounded", IsGrounded);
+        }
+    }
+
+    public void OnInteract()
+    {
+        // Tell the drawer to try interacting
+        if (OpenDrawer.current != null)
+        {
+            OpenDrawer.current.TryInteract();
         }
     }
 }

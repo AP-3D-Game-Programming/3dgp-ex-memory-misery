@@ -6,36 +6,20 @@ public class ItemPickup : MonoBehaviour
     public ItemData item;
     public int amount = 1;
 
-    [Header("Interaction Settings")]
-    public bool isTrigger = true;
-
     public void PickUp()
     {
-        if (InventoryManager.Instance == null || item == null)
-        {
-            return;
-        }
-
-        bool addedSuccessfully = InventoryManager.Instance.AddItem(item, amount);
-
-        if (addedSuccessfully)
+        if (InventoryManager.Instance.AddItem(item, amount))
         {
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log($"Inventory full, cannot pick up {item.itemName}.");
+            Debug.Log("Inventory full!");
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Highlight(bool state)
     {
-        if (isTrigger)
-        {
-            if (other.CompareTag("Player"))
-            {
-                PickUp();
-            }
-        }
+        // Nog bekijken
     }
 }

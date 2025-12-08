@@ -351,6 +351,69 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &224391483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6867661044245853277, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &224391485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224391483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &235519774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4823411492219993037, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &235519776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235519774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &504031946 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6355243167076619580, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &504031948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504031946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1001 &615286909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -424,6 +487,48 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f173279be2391346b6303a31c3731f4, type: 3}
+--- !u!1 &705592993 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1824137465826135906, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &705592995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705592993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &723099518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5371277726573777638, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &723099520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723099518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1 &726115518
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,11 +665,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726115518}
   m_CullTransparentMesh: 1
+--- !u!1 &790531723 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7484189181909696106, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &790531725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790531723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &801414824 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9021716907369824238, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &801414826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801414824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!4 &838979132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3576698155909491482, guid: d8e6a8243ae437d4288603d25d371dff, type: 3}
   m_PrefabInstance: {fileID: 1371226457}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &873939029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 725677397096319056, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &873939031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873939029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1001 &938112590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -626,11 +794,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a5aa58bf6db8e243b3436c5e3f2a652, type: 3}
+--- !u!1 &1002118392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3095490995488770085, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1002118394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002118392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &1055133253 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6396818164692973536, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1055133255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055133253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!224 &1079771196 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5291919985102804385, guid: e6e91e3e9ee63b64cb20a1a6eb4995da, type: 3}
   m_PrefabInstance: {fileID: 1610021469}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1112198976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5526239724367738304, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1112198978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112198976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1 &1113652990
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +1032,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1323364595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8883214355687602452, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1323364597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323364595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &1330360077 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5490803047129856746, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1330360079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330360077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1001 &1371226457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -885,11 +1158,95 @@ PrefabInstance:
       addedObject: {fileID: 82691609}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8e6a8243ae437d4288603d25d371dff, type: 3}
+--- !u!1 &1399972330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 749451271141899829, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1399972332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399972330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &1427454766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8730681515698736623, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1427454768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427454766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &1452425196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2307261256256865681, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1452425198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452425196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1 &1458569752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3540170833090320473, guid: 2b6eb0520a06ef1459cfb18543990656, type: 3}
   m_PrefabInstance: {fileID: 1553978931}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1470462392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5005983905325532081, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1470462394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470462392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1001 &1553978931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -992,6 +1349,27 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   interactText: {fileID: 157279275}
+--- !u!1 &1589020398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6331650108790823556, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1589020400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589020398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1001 &1610021469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1137,6 +1515,48 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1763251210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5781876438286230099, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1763251212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763251210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &1811095998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2894308277559412405, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1811096000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811095998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1 &1876856884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1704,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &1996098861 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6967782385728907762, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1996098863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996098861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
+--- !u!1 &2000861013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7202463624668338671, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2000861015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000861013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1 &2006397822
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,12 +2466,81 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5612159290348692241, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2138238248}
+    - targetCorrespondingSourceObject: {fileID: 9021716907369824238, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 801414826}
+    - targetCorrespondingSourceObject: {fileID: 2307261256256865681, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1452425198}
+    - targetCorrespondingSourceObject: {fileID: 3095490995488770085, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1002118394}
     - targetCorrespondingSourceObject: {fileID: 7991357959020435941, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2079256672}
     - targetCorrespondingSourceObject: {fileID: 7991357959020435941, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2079256674}
+    - targetCorrespondingSourceObject: {fileID: 2894308277559412405, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1811096000}
+    - targetCorrespondingSourceObject: {fileID: 7202463624668338671, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2000861015}
+    - targetCorrespondingSourceObject: {fileID: 7484189181909696106, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 790531725}
+    - targetCorrespondingSourceObject: {fileID: 5371277726573777638, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 723099520}
+    - targetCorrespondingSourceObject: {fileID: 725677397096319056, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 873939031}
+    - targetCorrespondingSourceObject: {fileID: 8883214355687602452, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1323364597}
+    - targetCorrespondingSourceObject: {fileID: 6967782385728907762, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1996098863}
+    - targetCorrespondingSourceObject: {fileID: 6867661044245853277, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 224391485}
+    - targetCorrespondingSourceObject: {fileID: 6396818164692973536, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1055133255}
+    - targetCorrespondingSourceObject: {fileID: 4823411492219993037, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 235519776}
+    - targetCorrespondingSourceObject: {fileID: 5490803047129856746, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1330360079}
+    - targetCorrespondingSourceObject: {fileID: 1824137465826135906, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 705592995}
+    - targetCorrespondingSourceObject: {fileID: 6355243167076619580, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 504031948}
+    - targetCorrespondingSourceObject: {fileID: 5526239724367738304, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1112198978}
+    - targetCorrespondingSourceObject: {fileID: 8730681515698736623, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1427454768}
+    - targetCorrespondingSourceObject: {fileID: 749451271141899829, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1399972332}
+    - targetCorrespondingSourceObject: {fileID: 5005983905325532081, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1470462394}
+    - targetCorrespondingSourceObject: {fileID: 5781876438286230099, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1763251212}
+    - targetCorrespondingSourceObject: {fileID: 6331650108790823556, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1589020400}
   m_SourcePrefab: {fileID: 100100000, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
 --- !u!1 &2079256671 stripped
 GameObject:
@@ -2050,6 +2581,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.1135168, y: 2.9102468, z: 0.157323}
   m_Center: {x: -0.0061544776, y: 1.4362185, z: 0.25}
+--- !u!1 &2138238246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5612159290348692241, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+  m_PrefabInstance: {fileID: 2079256670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2138238248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138238246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  openAngle: -90
+  openSpeed: 2
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!1001 &8488411115022214586
 PrefabInstance:
   m_ObjectHideFlags: 0

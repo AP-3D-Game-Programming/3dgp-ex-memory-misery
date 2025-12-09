@@ -1552,7 +1552,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
   openAngle: 90
   openSpeed: 2
-  isOpen: 0
+  interactionDistance: 3
+  interactionKey: 114
 --- !u!65 &1947808849
 BoxCollider:
   m_ObjectHideFlags: 0

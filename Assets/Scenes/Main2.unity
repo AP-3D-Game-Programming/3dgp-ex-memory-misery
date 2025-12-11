@@ -3173,7 +3173,7 @@ PrefabInstance:
     - target: {fileID: 8953535961423424131, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: a1b8cb1e54b775c408711b6079f5a766, type: 2}
+      objectReference: {fileID: 23800000, guid: 8b96d66503836e6459b4510af92aa8f0, type: 2}
     - target: {fileID: 9011252861934024498, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       propertyPath: m_Lightmapping
       value: 1

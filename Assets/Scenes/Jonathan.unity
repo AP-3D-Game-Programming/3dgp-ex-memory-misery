@@ -302,7 +302,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -683,7 +684,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1000,7 +1002,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702465022}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0021244767, y: -0.991698, z: -0.016523642, w: 0.12750506}
+  m_LocalRotation: {x: 0.0092005115, y: -0.9873958, z: 0.06262539, w: 0.14506191}
   m_LocalPosition: {x: 14.534631, y: 2.8349154, z: 20.85113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1259,7 +1261,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310250632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1979,7 +1981,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2167,6 +2170,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 4531086016250389645, guid: 2b6eb0520a06ef1459cfb18543990656, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.000021106564
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531086016250389645, guid: 2b6eb0520a06ef1459cfb18543990656, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6258065
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531086016250389645, guid: 2b6eb0520a06ef1459cfb18543990656, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00033286214
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531086016250389645, guid: 2b6eb0520a06ef1459cfb18543990656, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9966402
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531086016250389645, guid: 2b6eb0520a06ef1459cfb18543990656, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.079902135
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531086016250389645, guid: 2b6eb0520a06ef1459cfb18543990656, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.017978622
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531086016250389645, guid: 2b6eb0520a06ef1459cfb18543990656, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0008398235
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2278,7 +2309,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:

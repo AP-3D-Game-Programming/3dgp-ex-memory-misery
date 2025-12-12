@@ -8,7 +8,7 @@ public class DoorInteraction : MonoBehaviour
 
     [Header("Interaction Settings")]
     [SerializeField] private float interactionDistance = 3f;
-    [SerializeField] private KeyCode interactionKey = KeyCode.R;
+    [SerializeField] private KeyCode interactionKey = KeyCode.E;
 
     private Camera playerCamera;
     private Quaternion closedRotation;

@@ -3,84 +3,83 @@ using UnityEngine.SceneManagement;
 
 public class CarPathSystem : MonoBehaviour
 {
-    [Header("De Route")]
-    public Transform[] waypoints; 
-    public float driveSpeed = 8f;
-    public float turnSpeed = 2f;  
-    public float stopDistance = 0.5f; 
+    [Header("Route & Sturen")]
+    public Transform[] waypoints;       
+    public Transform steeringWheel;    
+    public float driveSpeed = 10f;
+    public float turnSpeed = 2f;       
+    public float wheelSensitivity = 3f; 
 
     [Header("Verhaal")]
-    public AudioSource voiceOver; 
-    public AudioSource carEngineSound; 
-    public string nextSceneName = "2_intro_Exterior";
+    public AudioSource voiceOver;       
+    public string nextScene = "";
 
-    private int currentPointIndex = 0;
-    private bool isParked = false;
-
-    void Start()
-    {
-        if (waypoints.Length > 0)
-        {
-            transform.position = waypoints[0].position;
-            transform.LookAt(waypoints[1].position); 
-        }
-    }
+    private int index = 0;
+    private bool parked = false;
 
     void Update()
     {
-        if (isParked) return;
+        if (parked) return;
 
-        if (currentPointIndex < waypoints.Length)
+        if (index < waypoints.Length)
         {
-            DriveToPoint();
+            DriveAndSteer();
         }
         else
         {
-            ParkTheCar();
+            ParkCar();
         }
     }
 
-    void DriveToPoint()
+    void DriveAndSteer()
     {
-        Transform targetPoint = waypoints[currentPointIndex];
+        Transform target = waypoints[index];
 
-        Vector3 direction = targetPoint.position - transform.position;
+        transform.position = Vector3.MoveTowards(transform.position, target.position, driveSpeed * Time.deltaTime);
+
+        Vector3 direction = (target.position - transform.position).normalized;
         if (direction != Vector3.zero)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, turnSpeed * Time.deltaTime);
+            Quaternion lookRot = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, turnSpeed * Time.deltaTime);
+
+            if (steeringWheel != null)
+            {
+                // Bereken hoever we moeten draaien
+                float targetSteerAngle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
+
+                
+                // Probeer hieronder 'Vector3.back' of 'Vector3.up' of 'Vector3.forward' als het raar draait.
+                Quaternion wheelRot = Quaternion.Euler(0, 0, -targetSteerAngle * wheelSensitivity);
+
+                steeringWheel.localRotation = Quaternion.Slerp(steeringWheel.localRotation, wheelRot, Time.deltaTime * 5f);
+            }
         }
 
-        transform.Translate(Vector3.forward * driveSpeed * Time.deltaTime);
-
-        if (Vector3.Distance(transform.position, targetPoint.position) < stopDistance)
+        if (Vector3.Distance(transform.position, target.position) < 0.5f)
         {
-            currentPointIndex++; 
+            index++;
         }
     }
 
-    void ParkTheCar()
+    void ParkCar()
     {
-        if (isParked) return; 
-        isParked = true;
-
-        Debug.Log("Geparkeerd!");
-
-        if (carEngineSound != null) carEngineSound.Stop();
+        parked = true;
+        if (steeringWheel) steeringWheel.localRotation = Quaternion.identity;
 
         if (voiceOver != null)
         {
             voiceOver.Play();
-            Invoke("LoadNextLevel", voiceOver.clip.length + 2f);
+            Invoke("LoadLevel", voiceOver.clip.length + 2f);
         }
         else
         {
-            Invoke("LoadNextLevel", 3f);
+            Invoke("LoadLevel", 3f);
         }
     }
 
-    void LoadNextLevel()
+    void LoadLevel()
     {
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene(nextScene);
     }
 }

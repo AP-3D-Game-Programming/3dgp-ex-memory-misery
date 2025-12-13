@@ -12,7 +12,7 @@ public class CarPathSystem : MonoBehaviour
 
     [Header("Verhaal")]
     public AudioSource voiceOver;       
-    public string nextScene = "";
+    public string nextScene = "2_Intro_Forest";
 
     private int index = 0;
     private bool parked = false;

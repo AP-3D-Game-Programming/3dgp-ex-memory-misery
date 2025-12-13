@@ -1557,11 +1557,11 @@ PrefabInstance:
     - target: {fileID: 4013013768695510101, guid: d8e6a8243ae437d4288603d25d371dff, type: 3}
       propertyPath: playerScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2058176754}
     - target: {fileID: 4013013768695510101, guid: d8e6a8243ae437d4288603d25d371dff, type: 3}
       propertyPath: playerTarget
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2058176757}
     - target: {fileID: 4013013768695510101, guid: d8e6a8243ae437d4288603d25d371dff, type: 3}
       propertyPath: stepRateWalk
       value: 0.6
@@ -2694,6 +2694,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032839461}
   m_CullTransparentMesh: 1
+--- !u!114 &2058176754 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2010600437627236543, guid: cb4622441d4339947b9a1809476ec266, type: 3}
+  m_PrefabInstance: {fileID: 2112869850}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab152821a9df784f81ca7991e932579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FPController
+--- !u!4 &2058176757 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3020186612191017827, guid: cb4622441d4339947b9a1809476ec266, type: 3}
+  m_PrefabInstance: {fileID: 2112869850}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2079256670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3225,12 +3241,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8883214355687602452, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1323364597}
-    - targetCorrespondingSourceObject: {fileID: 6967782385728907762, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1996098863}
     - targetCorrespondingSourceObject: {fileID: 6867661044245853277, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 224391485}
+    - targetCorrespondingSourceObject: {fileID: 6967782385728907762, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1996098863}
     - targetCorrespondingSourceObject: {fileID: 6396818164692973536, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1055133255}
@@ -3447,6 +3463,10 @@ PrefabInstance:
     - target: {fileID: 405338919072231387, guid: cb4622441d4339947b9a1809476ec266, type: 3}
       propertyPath: m_Name
       value: Player 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466620262454403239, guid: cb4622441d4339947b9a1809476ec266, type: 3}
+      propertyPath: hasFlashlightItem
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3020186612191017827, guid: cb4622441d4339947b9a1809476ec266, type: 3}
       propertyPath: m_LocalPosition.x

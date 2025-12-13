@@ -1,21 +1,50 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI; 
 public class CarPathSystem : MonoBehaviour
 {
+    [Header("Overgang & Sfeer")]
+    public Image whiteFadePanel;   
+    public float fadeDuration = 3f; 
+    public float dialogueDelay = 2f;
+
     [Header("Route & Sturen")]
-    public Transform[] waypoints;       
-    public Transform steeringWheel;    
+    public Transform[] waypoints;
+    public Transform steeringWheel;
     public float driveSpeed = 10f;
-    public float turnSpeed = 2f;       
-    public float wheelSensitivity = 3f; 
+    public float turnSpeed = 2f;
+    public float wheelSensitivity = 3f;
 
     [Header("Verhaal")]
-    public AudioSource voiceOver;       
+    public AudioSource voiceOver;
     public string nextScene = "2_Intro_Forest";
 
     private int index = 0;
     private bool parked = false;
+
+    void Start()
+    {
+        if (whiteFadePanel != null)
+        {
+            whiteFadePanel.color = Color.white;
+            whiteFadePanel.canvasRenderer.SetAlpha(1.0f);
+            whiteFadePanel.CrossFadeAlpha(0, fadeDuration, false);
+        }
+
+    
+        if (voiceOver != null)
+        {
+            Invoke("PlayDialogue", dialogueDelay);
+        }
+    }
+
+    void PlayDialogue()
+    {
+        if (!parked) 
+        {
+            voiceOver.Play();
+        }
+    }
 
     void Update()
     {
@@ -45,13 +74,8 @@ public class CarPathSystem : MonoBehaviour
 
             if (steeringWheel != null)
             {
-                // Bereken hoever we moeten draaien
                 float targetSteerAngle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
-
-                
-                // Probeer hieronder 'Vector3.back' of 'Vector3.up' of 'Vector3.forward' als het raar draait.
                 Quaternion wheelRot = Quaternion.Euler(0, 0, -targetSteerAngle * wheelSensitivity);
-
                 steeringWheel.localRotation = Quaternion.Slerp(steeringWheel.localRotation, wheelRot, Time.deltaTime * 5f);
             }
         }
@@ -67,15 +91,21 @@ public class CarPathSystem : MonoBehaviour
         parked = true;
         if (steeringWheel) steeringWheel.localRotation = Quaternion.identity;
 
-        if (voiceOver != null)
+       
+        float waitTime = 2f; 
+
+        if (voiceOver != null && voiceOver.isPlaying)
+        {
+            float remainingTime = voiceOver.clip.length - voiceOver.time;
+            waitTime = remainingTime + 1f;
+        }
+        else if (voiceOver != null && !voiceOver.isPlaying && voiceOver.time == 0)
         {
             voiceOver.Play();
-            Invoke("LoadLevel", voiceOver.clip.length + 2f);
+            waitTime = voiceOver.clip.length + 1f;
         }
-        else
-        {
-            Invoke("LoadLevel", 3f);
-        }
+
+        Invoke("LoadLevel", waitTime);
     }
 
     void LoadLevel()

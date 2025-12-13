@@ -4,12 +4,14 @@ using UnityEngine.InputSystem;
 public class FlashlightSystem : MonoBehaviour
 {
     [Header("Setup")]
-    [SerializeField] GameObject flashlightModel; 
-    [SerializeField] Light flashlightSource;    
-    [SerializeField] Animator characterAnimator; 
+    [SerializeField] GameObject flashlightModel;
+    [SerializeField] Light flashlightSource;
+    [SerializeField] Animator characterAnimator;
 
     [Header("Settings")]
     [SerializeField] string layerName = "FlashlightLayer";
+
+    public bool hasFlashlightItem = false;
 
     private bool isEquipped = false;
     private int layerIndex;
@@ -20,37 +22,45 @@ public class FlashlightSystem : MonoBehaviour
         {
             layerIndex = characterAnimator.GetLayerIndex(layerName);
         }
+
+        isEquipped = false;
         UpdateFlashlightState();
     }
 
     void Update()
     {
-        if (Keyboard.current.fKey.wasPressedThisFrame)
+        if (hasFlashlightItem && Keyboard.current.fKey.wasPressedThisFrame)
         {
             isEquipped = !isEquipped;
             UpdateFlashlightState();
         }
     }
 
+    public void CollectFlashlight()
+    {
+        hasFlashlightItem = true; 
+        isEquipped = true;        
+        UpdateFlashlightState();
+    }
+
     void UpdateFlashlightState()
     {
-        // 1. Model aan/uit (Het ding in je hand)
+        // 1. Model aan/uit
         if (flashlightModel != null)
         {
             flashlightModel.SetActive(isEquipped);
         }
 
-        // 2. Lichtbron aan/uit (De straal) 
+        // 2. Lichtbron aan/uit 
         if (flashlightSource != null)
         {
             flashlightSource.enabled = isEquipped;
         }
 
-        // 3. Animatie Laag (Arm omhoog/omlaag)
+        // 3. Animatie Laag
         if (characterAnimator != null)
         {
             float targetWeight = isEquipped ? 1.0f : 0.0f;
-
             characterAnimator.SetLayerWeight(layerIndex, targetWeight);
         }
     }

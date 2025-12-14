@@ -711,7 +711,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &235519774 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4823411492219993037, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -4033,7 +4033,7 @@ Transform:
   m_GameObject: {fileID: 2029267695}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.523, y: 4.015, z: -26.141}
+  m_LocalPosition: {x: -16.101, y: 3.854, z: -24.635}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -40,6 +40,9 @@ public class IntroSequence : MonoBehaviour
     public AudioClip hitSound;
     public AudioClip bodyFallSound;
     public AudioClip wakeUpGasp;
+    public AudioClip wakeUpText;
+
+    private bool wakeUpPlayed = false;
 
     void Start()
     {
@@ -177,9 +180,15 @@ public class IntroSequence : MonoBehaviour
 
         if (dof != null) { dof.active = true; dof.gaussianEnd.value = 5f; }
         if (audioSource) audioSource.PlayOneShot(wakeUpGasp);
+        
+        if (!wakeUpPlayed && audioSource != null && wakeUpText != null)
+        {
+            audioSource.PlayOneShot(wakeUpText);
+            wakeUpPlayed = true;
+        }
 
         timer = 0;
-        while (timer < 3.0f)
+        while (timer < 10.0f)
         {
             float progress = timer / 3.0f;
             if (blackScreen != null) blackScreen.color = new Color(0, 0, 0, 1 - progress);

@@ -691,27 +691,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f3a1e7a6d1c7124582bcc8e7c089ce7, type: 3}
---- !u!1 &224391483 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6867661044245853277, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
-  m_PrefabInstance: {fileID: 2079256670}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &224391485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 224391483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
-  openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
 --- !u!1 &235519774 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4823411492219993037, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -732,7 +711,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &271606941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,7 +1572,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &726115518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1730,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &801414824 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9021716907369824238, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -1772,7 +1751,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!4 &838979132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3576698155909491482, guid: d8e6a8243ae437d4288603d25d371dff, type: 3}
@@ -1798,7 +1777,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &892520351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2013,7 +1992,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1055133253 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6396818164692973536, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -2034,7 +2013,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!224 &1079771196 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5291919985102804385, guid: e6e91e3e9ee63b64cb20a1a6eb4995da, type: 3}
@@ -2060,7 +2039,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1113652990
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,7 +2579,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1330360077 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5490803047129856746, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -2621,7 +2600,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1001 &1371226457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2814,7 +2793,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1417222131 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4245162496381128603, guid: d8e6a8243ae437d4288603d25d371dff, type: 3}
@@ -2845,7 +2824,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1452425196 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2307261256256865681, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -2866,7 +2845,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1470462392 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5005983905325532081, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -2887,7 +2866,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1477608592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,7 +3168,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1001 &1610021469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3498,7 +3477,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1811095998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2894308277559412405, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -3519,7 +3498,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1 &1832560622
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,27 +3955,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982619020}
   m_CullTransparentMesh: 1
---- !u!1 &1996098861 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6967782385728907762, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
-  m_PrefabInstance: {fileID: 2079256670}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1996098863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996098861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
-  openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
 --- !u!1 &2000861013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7202463624668338671, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -4595,6 +4553,10 @@ PrefabInstance:
       propertyPath: m_Lightmapping
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5018744313055129192, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      propertyPath: openAngle
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 5101182021053976275, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       propertyPath: m_Lightmapping
       value: 1
@@ -4767,6 +4729,10 @@ PrefabInstance:
       propertyPath: m_Lightmapping
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8219789638561473381, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
+      propertyPath: openAngle
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 8243089565227801421, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       propertyPath: m_Lightmapping
       value: 1
@@ -4903,12 +4869,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3248983262505031051, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1228287527}
-    - targetCorrespondingSourceObject: {fileID: 6867661044245853277, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 224391485}
-    - targetCorrespondingSourceObject: {fileID: 6967782385728907762, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1996098863}
     - targetCorrespondingSourceObject: {fileID: 6396818164692973536, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1055133255}
@@ -5174,6 +5134,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6539272693234371434, guid: cb4622441d4339947b9a1809476ec266, type: 3}
+      propertyPath: m_Height
+      value: 1.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539272693234371434, guid: cb4622441d4339947b9a1809476ec266, type: 3}
+      propertyPath: m_Radius
+      value: 0.22
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5204,7 +5172,7 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   interactionDistance: 3
-  interactionKey: 114
+  interactionKey: 101
 --- !u!1001 &8488411115022214586
 PrefabInstance:
   m_ObjectHideFlags: 0

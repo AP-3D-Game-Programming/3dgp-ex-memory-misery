@@ -511,8 +511,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Memory Misery
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0848d0027f514794aa21444fec116eaf, type: 2}
-  m_sharedMaterial: {fileID: 405504859682962798, guid: 0848d0027f514794aa21444fec116eaf, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 07bfa3de256fc9346b2a49a7bb746aee, type: 2}
+  m_sharedMaterial: {fileID: 6132558014854425819, guid: 07bfa3de256fc9346b2a49a7bb746aee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -647,8 +647,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0ed8f1c2d20b6254095755c065f0c3c0, type: 2}
-  m_sharedMaterial: {fileID: 7888127609432015878, guid: 0ed8f1c2d20b6254095755c065f0c3c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a76d71f341a78fd4e8b1838acb7ea0b8, type: 2}
+  m_sharedMaterial: {fileID: -6710757549065837349, guid: a76d71f341a78fd4e8b1838acb7ea0b8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1402,8 +1402,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: START
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0ed8f1c2d20b6254095755c065f0c3c0, type: 2}
-  m_sharedMaterial: {fileID: 7888127609432015878, guid: 0ed8f1c2d20b6254095755c065f0c3c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a76d71f341a78fd4e8b1838acb7ea0b8, type: 2}
+  m_sharedMaterial: {fileID: -6710757549065837349, guid: a76d71f341a78fd4e8b1838acb7ea0b8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

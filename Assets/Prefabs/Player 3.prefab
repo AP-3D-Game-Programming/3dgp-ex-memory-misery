@@ -219,6 +219,7 @@ MonoBehaviour:
   flashlightSource: {fileID: 4580863846405213177}
   characterAnimator: {fileID: 8911761506186857463}
   layerName: FlashlightLayer
+  hasFlashlightItem: 0
 --- !u!114 &7130664734108942640
 MonoBehaviour:
   m_ObjectHideFlags: 0

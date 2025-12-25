@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using System.Collections;
+
 public class CarPathSystem : MonoBehaviour
 {
     [Header("Overgang & Sfeer")]
-    public Image whiteFadePanel;   
-    public float fadeDuration = 3f; 
+    public Image whiteFadePanel;
+    public float fadeDuration = 3f;
     public float dialogueDelay = 2f;
 
     [Header("Route & Sturen")]
@@ -21,6 +23,7 @@ public class CarPathSystem : MonoBehaviour
 
     private int index = 0;
     private bool parked = false;
+    private bool dialogueStarted = false; // Nieuwe variabele om dubbel afspelen te voorkomen
 
     void Start()
     {
@@ -31,18 +34,20 @@ public class CarPathSystem : MonoBehaviour
             whiteFadePanel.CrossFadeAlpha(0, fadeDuration, false);
         }
 
-    
         if (voiceOver != null)
         {
+            // Start de dialoog na een tijdje, maar via een naam zodat we hem kunnen annuleren
             Invoke("PlayDialogue", dialogueDelay);
         }
     }
 
     void PlayDialogue()
     {
-        if (!parked) 
+        // Alleen afspelen als we nog niet geparkeerd zijn EN hij nog niet eerder gestart is
+        if (!parked && !dialogueStarted)
         {
             voiceOver.Play();
+            dialogueStarted = true;
         }
     }
 
@@ -56,14 +61,13 @@ public class CarPathSystem : MonoBehaviour
         }
         else
         {
-            ParkCar();
+            StartCoroutine(ParkAndEndScene());
         }
     }
 
     void DriveAndSteer()
     {
         Transform target = waypoints[index];
-
         transform.position = Vector3.MoveTowards(transform.position, target.position, driveSpeed * Time.deltaTime);
 
         Vector3 direction = (target.position - transform.position).normalized;
@@ -86,30 +90,44 @@ public class CarPathSystem : MonoBehaviour
         }
     }
 
-    void ParkCar()
+    IEnumerator ParkAndEndScene()
     {
         parked = true;
+
+        // BELANGRIJK: Stop de timer uit Start() als die nog loopt!
+        CancelInvoke("PlayDialogue");
+
         if (steeringWheel) steeringWheel.localRotation = Quaternion.identity;
 
-       
-        float waitTime = 2f; 
+        float waitTime = 1f;
 
-        if (voiceOver != null && voiceOver.isPlaying)
+        if (voiceOver != null)
         {
-            float remainingTime = voiceOver.clip.length - voiceOver.time;
-            waitTime = remainingTime + 1f;
+            if (voiceOver.isPlaying)
+            {
+                // Situatie 1: Hij is bezig -> wacht tot hij klaar is
+                waitTime = voiceOver.clip.length - voiceOver.time;
+            }
+            else if (!dialogueStarted)
+            {
+                // Situatie 2: Hij heeft nog NOOIT gespeeld -> Speel hem nu af
+                voiceOver.Play();
+                dialogueStarted = true;
+                waitTime = voiceOver.clip.length;
+            }
+            // Situatie 3: Hij is al klaar met spelen -> Doe niets, ga direct door naar fade out
         }
-        else if (voiceOver != null && !voiceOver.isPlaying && voiceOver.time == 0)
+
+        // Wacht de berekende tijd
+        yield return new WaitForSeconds(waitTime);
+
+        // Fade Out
+        if (whiteFadePanel != null)
         {
-            voiceOver.Play();
-            waitTime = voiceOver.clip.length + 1f;
+            whiteFadePanel.CrossFadeAlpha(1, 2.0f, false);
+            yield return new WaitForSeconds(2.0f);
         }
 
-        Invoke("LoadLevel", waitTime);
-    }
-
-    void LoadLevel()
-    {
         SceneManager.LoadScene(nextScene);
     }
 }

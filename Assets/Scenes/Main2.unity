@@ -5738,7 +5738,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: b9c3b8d9c3682714fb8c13b710fba370, type: 3}
   bodyFallSound: {fileID: 8300000, guid: f1255680025bcc64483cdae1f4233d88, type: 3}
   wakeUpGasp: {fileID: 8300000, guid: 46800fd798aadf94687739e29b3f43d1, type: 3}
-  wakeUpText: {fileID: 8300000, guid: 995c9b62abeda72408a4456de45b6f57, type: 3}
+  wakeUpText: {fileID: 8300000, guid: e1a31f630053152409625a024569d1c6, type: 3}
 --- !u!82 &1832560625
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6667,13 +6667,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029267695}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.4024427, z: -0, w: 0.91544515}
   m_LocalPosition: {x: -16.101, y: 3.854, z: -24.635}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 59989866}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -47.462, z: 0}
 --- !u!1 &2032839461
 GameObject:
   m_ObjectHideFlags: 0

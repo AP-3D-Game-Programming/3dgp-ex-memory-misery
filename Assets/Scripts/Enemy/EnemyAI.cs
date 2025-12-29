@@ -219,14 +219,13 @@ public class EnemyAI : MonoBehaviour
 
     public void RestartLevel()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0.05f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void LoadMainMenu()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("StartScreen");
+        Time.timeScale = 0.05f;SceneManager.LoadScene("StartScreen");
     }
 
     void HandleMusic()

@@ -17,6 +17,10 @@ public class SimpleRestart : MonoBehaviour
 
     public void ReloadScene()
     {
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.ClearInventory();
+        }
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

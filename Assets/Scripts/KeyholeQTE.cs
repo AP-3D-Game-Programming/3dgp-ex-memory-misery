@@ -1,23 +1,27 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KeyholeQTE : MonoBehaviour
 {
-    [Header("UI")]
-    [Tooltip("Root panel for the QTE (inactive at start).")]
+    [Header("UI Setup")]
+    [Tooltip("Het paneel dat aan/uit gaat (De container van de minigame).")]
     public GameObject qtePanel;
-    [Tooltip("Moving icon RectTransform (Image inside panel).")]
+
+    [Tooltip("Het icoontje dat heen en weer beweegt.")]
     public RectTransform icon;
-    [Tooltip("Target zone RectTransform (Image inside panel).")]
+
+    [Tooltip("Het vakje waar je in moet stoppen.")]
     public RectTransform targetZone;
 
-    [Header("Behavior")]
-    public KeyCode pressKey = KeyCode.Space;
+    [Header("Instellingen")]
+    // pressKey is weggehaald omdat we nu hardcoded Muisklik gebruiken
     public float duration = 6f;
-    public float speed = 600f; // pixels per second
-    [Range(0f, 2f)]
-    public float targetTolerance = 1f; // multiplier for target width used as tolerance
+    public float baseSpeed = 600f;
+
+    [Range(1f, 2f)]
+    public float targetTolerance = 1.0f;
 
     private Coroutine running;
 
@@ -47,42 +51,45 @@ public class KeyholeQTE : MonoBehaviour
     private IEnumerator QTECoroutine(Action onSuccess, Action onFail)
     {
         if (qtePanel != null) qtePanel.SetActive(true);
-        yield return null; // wait a frame for layout
+        yield return null;
 
+        // Check referenties
         RectTransform parentRect = qtePanel.GetComponent<RectTransform>();
         if (parentRect == null || icon == null || targetZone == null)
         {
-            Debug.LogWarning("KeyholeQTE: Missing UI references.");
+            Debug.LogError("KeyholeQTE: UI referenties ontbreken!");
             FinishFail(onFail);
             yield break;
         }
 
+        // Berekeningen
         float parentWidth = parentRect.rect.width;
-        float iconW = Mathf.Max(1f, icon.rect.width);
+        float iconW = icon.rect.width;
         float left = -parentWidth * 0.5f + iconW * 0.5f;
         float right = parentWidth * 0.5f - iconW * 0.5f;
         float playRange = Mathf.Max(0.001f, right - left);
 
-        // place icon at left
-        Vector2 anchored = icon.anchoredPosition;
-        anchored.x = left;
-        icon.anchoredPosition = anchored;
+        float responsiveSpeed = baseSpeed * (parentWidth / 1920f);
 
         float startTime = Time.realtimeSinceStartup;
         bool finished = false;
 
+        Vector2 anchored = icon.anchoredPosition;
+        anchored.x = left;
+        icon.anchoredPosition = anchored;
+
         while (!finished && Time.realtimeSinceStartup - startTime < duration)
         {
-            float t = (Time.realtimeSinceStartup - startTime) * (speed / playRange);
+            float t = (Time.realtimeSinceStartup - startTime) * (responsiveSpeed / playRange);
             float ping = Mathf.PingPong(t, 1f);
+
             anchored.x = Mathf.Lerp(left, right, ping);
             icon.anchoredPosition = anchored;
 
-            if (Input.GetKeyDown(pressKey))
+            // === HIER IS DE AANPASSING NAAR MUISKLIK ===
+            if (Input.GetMouseButtonDown(0)) // 0 is Linker Muisknop
             {
-                bool isIn = IsIconInTarget_Debug();
-                Debug.Log($"KeyholeQTE: Pressed {pressKey}. iconInTarget={isIn}");
-                if (isIn)
+                if (IsIconInTarget())
                 {
                     FinishSuccess(onSuccess);
                 }
@@ -92,6 +99,7 @@ public class KeyholeQTE : MonoBehaviour
                 }
                 finished = true;
             }
+            // ============================================
 
             yield return null;
         }
@@ -102,58 +110,38 @@ public class KeyholeQTE : MonoBehaviour
         }
     }
 
-    // New robust screen-space overlap check with debug logging
-    private bool IsIconInTarget_Debug()
+    private bool IsIconInTarget()
     {
         Canvas canvas = qtePanel != null ? qtePanel.GetComponentInParent<Canvas>() : null;
         Camera cam = null;
-        if (canvas != null && canvas.renderMode == RenderMode.ScreenSpaceCamera)
+
+        if (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay)
+        {
             cam = canvas.worldCamera;
-        if (cam == null)
-            cam = Camera.main;
+            if (cam == null) cam = Camera.main;
+        }
 
         Rect iconRect = GetScreenRect(icon, cam);
         Rect targetRect = GetScreenRect(targetZone, cam);
 
-        // expand target rect by tolerance multiplier (1 = no change)
         float expandX = (targetRect.width * (targetTolerance - 1f)) * 0.5f;
         float expandY = (targetRect.height * (targetTolerance - 1f)) * 0.5f;
+
         targetRect.xMin -= expandX;
         targetRect.xMax += expandX;
         targetRect.yMin -= expandY;
         targetRect.yMax += expandY;
 
-        bool overlaps = iconRect.Overlaps(targetRect);
-
-        // Debug: print rects so you can tune UI/tolerance quickly
-        Debug.LogFormat("KeyholeQTE Debug - IconRect: {0} TargetRect(expanded): {1} Overlaps: {2} (tol:{3})",
-            RectToString(iconRect), RectToString(targetRect), overlaps, targetTolerance);
-
-        return overlaps;
+        return iconRect.Overlaps(targetRect);
     }
 
     private Rect GetScreenRect(RectTransform rt, Camera cam)
     {
-        if (rt == null) return new Rect();
-
         Vector3[] corners = new Vector3[4];
-        rt.GetWorldCorners(corners); // order: 0 = bottom-left, 2 = top-right
-
-        Vector2 bottomLeft = RectTransformUtility.WorldToScreenPoint(cam, corners[0]);
-        Vector2 topRight = RectTransformUtility.WorldToScreenPoint(cam, corners[2]);
-
-        // convert Unity's screen (0,0 at bottom-left) to consistent Rect (x,y,width,height)
-        float x = bottomLeft.x;
-        float y = bottomLeft.y;
-        float w = Mathf.Max(0.001f, topRight.x - bottomLeft.x);
-        float h = Mathf.Max(0.001f, topRight.y - bottomLeft.y);
-
-        return new Rect(x, y, w, h);
-    }
-
-    private string RectToString(Rect r)
-    {
-        return $"(x:{Mathf.RoundToInt(r.x)}, y:{Mathf.RoundToInt(r.y)}, w:{Mathf.RoundToInt(r.width)}, h:{Mathf.RoundToInt(r.height)})";
+        rt.GetWorldCorners(corners);
+        Vector2 min = RectTransformUtility.WorldToScreenPoint(cam, corners[0]);
+        Vector2 max = RectTransformUtility.WorldToScreenPoint(cam, corners[2]);
+        return new Rect(min.x, min.y, max.x - min.x, max.y - min.y);
     }
 
     private void FinishSuccess(Action onSuccess)

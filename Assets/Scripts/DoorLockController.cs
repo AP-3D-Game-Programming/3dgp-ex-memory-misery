@@ -1,85 +1,61 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class DoorLockController : MonoBehaviour
 {
-    [Header("QTE")]
-    [Tooltip("Reference to the KeyholeQTE component (assign in inspector).")]
+    [Header("QTE Settings")]
     public KeyholeQTE qteHandler;
 
-    [Header("Interaction")]
-    [Tooltip("TextMeshPro UI text (optional). If null, InteractionPromptUI will be used).")]
-    public TMPro.TMP_Text promptText;
-
-    [Tooltip("Distance from player camera to start interaction")]
+    [Header("Interaction UI")]
+    public TMP_Text promptText;
     public float interactDistance = 3f;
 
     [Header("Key / Inventory")]
-    [Tooltip("Require a key (ItemData.isKeyItem == true) in inventory before starting QTE.")]
     public bool requireKey = true;
-    [Tooltip("Consume one key on success")]
     public bool consumeKeyOnSuccess = true;
 
-    [Header("Door Hinge Targets")]
-    [Tooltip("If empty, DoorInteraction components in children will be auto-found.")]
+    [Header("Deur Settings")]
     public List<DoorInteraction> hingeDoorInteractions = new List<DoorInteraction>();
-
-    [Header("Behavior")]
-    [Tooltip("If true, opening will be automatic (call ToggleDoor on each hinge) after unlock. If false, hinges are simply enabled and player must use them.")]
     public bool autoOpenOnSuccess = false;
 
     [Header("Audio")]
     public AudioSource audioSource;
-
     public AudioClip unlockClip;
-    [Range(0f, 1f)]
-    public float unlockVolume = 1f;
+    [Range(0f, 1f)] public float unlockVolume = 1f;
 
     public AudioClip noKeyClip;
-    [Range(0f, 1f)]
-    public float noKeyVolume = 1f;
+    [Range(0f, 1f)] public float noKeyVolume = 1f;
 
     private Camera playerCamera;
     private bool playerInRange = false;
-    private bool unlocked = false;
 
-    // New: track if a QTE is currently active so we can block input/avoid races
+    // Public gemaakt zodat je in de inspector kan zien of hij unlocked is
+    public bool unlocked = false;
     private bool qteActive = false;
 
     void Awake()
     {
-        // Ensure camera is available as early as possible
         playerCamera = Camera.main;
 
-        // auto-find DoorInteraction components if none assigned
         if (hingeDoorInteractions == null || hingeDoorInteractions.Count == 0)
         {
             hingeDoorInteractions = GetComponentsInChildren<DoorInteraction>(true).ToList();
         }
 
-        // disable hinge scripts so door cannot be opened before unlock
-        foreach (var hi in hingeDoorInteractions)
-        {
-            if (hi != null)
-            {
-                hi.enabled = false;
-                Debug.Log($"DoorLockController: Disabled hinge {hi.gameObject.name} at Awake()");
-            }
-        }
-
+        DisableHingesImmediate();
         if (promptText != null) promptText.gameObject.SetActive(false);
-    }
-
-    void Start()
-    {
-        // nothing critical here - Awake handled early disabling
     }
 
     void Update()
     {
-        // If already unlocked, no further input for unlocking
-        if (unlocked) return;
+        // 1. VEILIGHEIDSCHECK: Als de deur al open is, stop dit script direct.
+        if (unlocked)
+        {
+            HidePrompt();
+            return;
+        }
 
         if (playerCamera == null) return;
 
@@ -90,30 +66,30 @@ public class DoorLockController : MonoBehaviour
         {
             if (HasKey() || !requireKey)
             {
-                // If a QTE is already active, show QTE prompt and ignore new E presses
                 if (qteActive)
                 {
-                    ShowPrompt("QTE in progress...");
+                    ShowPrompt("Unlocking...");
                     return;
                 }
 
                 ShowPrompt("Press [E] to attempt unlock");
-                if (Input.GetKeyDown(KeyCode.E) && (qteHandler != null) && !qteHandler.IsRunning)
-                {
-                    // ensure hinges are disabled immediately to prevent any race
-                    DisableHingesImmediate();
 
-                    // mark QTE active and start it
-                    qteActive = true;
-                    Debug.Log("DoorLockController: Starting QTE");
-                    qteHandler.StartQTE(OnQTESuccess, OnQTEFail);
-                    ShowPrompt("QTE started: Press [Space] when icon is in the keyhole");
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (qteHandler != null && !qteHandler.IsRunning)
+                    {
+                        qteActive = true;
+                        DisableHingesImmediate();
+
+                        // Start QTE: Muisklik wordt in het andere script geregeld
+                        qteHandler.StartQTE(OnQTESuccess, OnQTEFail);
+                        ShowPrompt("Click [Left Mouse] when inside the zone!");
+                    }
                 }
             }
             else
             {
-                ShowPrompt("You need a key!");
-
+                ShowPrompt("Locked! You need a key.");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     PlayNoKeySound();
@@ -126,15 +102,60 @@ public class DoorLockController : MonoBehaviour
         }
     }
 
+    private void OnQTESuccess()
+    {
+        qteActive = false;
+        unlocked = true; // Markeer als open
+
+        ConsumeKeyIfConfigured();
+        PlayUnlockSound();
+
+        // Zet de deur scripts weer aan
+        foreach (var hi in hingeDoorInteractions)
+        {
+            if (hi != null) hi.enabled = true;
+        }
+
+        if (autoOpenOnSuccess)
+        {
+            foreach (var hi in hingeDoorInteractions)
+            {
+                if (hi == null) continue;
+                var mi = hi.GetType().GetMethod("ToggleDoor", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+                if (mi != null) mi.Invoke(hi, null);
+            }
+        }
+
+        ShowPrompt("Unlocked!");
+
+        // Verberg prompt na 1.5 seconde
+        Invoke(nameof(HidePrompt), 1.5f);
+
+        // === BUGFIX: Schakel dit script uit zodat hij NOOIT meer kan runnen ===
+        // We gebruiken een kleine vertraging zodat de "Unlocked!" tekst nog net te zien is
+        Invoke(nameof(DisableScriptPermanently), 1.6f);
+    }
+
+    private void DisableScriptPermanently()
+    {
+        // Dit zorgt ervoor dat dit script stopt met werken. 
+        // De deur is nu open/van het slot, dus we hebben dit script niet meer nodig.
+        this.enabled = false;
+    }
+
+    private void OnQTEFail()
+    {
+        qteActive = false;
+        ShowPrompt("Failed! Try again.");
+        Invoke(nameof(HidePrompt), 1.5f);
+    }
+
+    // --- (Overige functies zijn ongewijzigd) ---
     private void DisableHingesImmediate()
     {
         foreach (var hi in hingeDoorInteractions)
         {
-            if (hi != null && hi.enabled)
-            {
-                hi.enabled = false;
-                Debug.Log($"DoorLockController: Force-disabled hinge {hi.gameObject.name} before QTE");
-            }
+            if (hi != null) hi.enabled = false;
         }
     }
 
@@ -149,83 +170,27 @@ public class DoorLockController : MonoBehaviour
     {
         if (!requireKey || !consumeKeyOnSuccess) return;
         if (InventoryManager.Instance == null) return;
-
         var inv = InventoryManager.Instance.GetInventory();
         var entry = inv.Find(i => i.itemData != null && i.itemData.isKeyItem);
-        if (entry.itemData != null)
-            InventoryManager.Instance.RemoveItem(entry.itemData, 1);
+        if (entry.itemData != null) InventoryManager.Instance.RemoveItem(entry.itemData, 1);
     }
 
     private void PlayUnlockSound()
     {
-        if (unlockClip == null) return;
-
-        if (audioSource != null)
+        if (unlockClip != null)
         {
-            audioSource.PlayOneShot(unlockClip, unlockVolume);
+            if (audioSource != null) audioSource.PlayOneShot(unlockClip, unlockVolume);
+            else AudioSource.PlayClipAtPoint(unlockClip, transform.position, unlockVolume);
         }
-        else
-        {
-            AudioSource.PlayClipAtPoint(unlockClip, transform.position, unlockVolume);
-        }
-
     }
 
     private void PlayNoKeySound()
     {
-        if (noKeyClip == null) return;
-
-        if (audioSource != null)
+        if (noKeyClip != null)
         {
-            audioSource.PlayOneShot(noKeyClip, noKeyVolume);
+            if (audioSource != null) audioSource.PlayOneShot(noKeyClip, noKeyVolume);
+            else AudioSource.PlayClipAtPoint(noKeyClip, transform.position, noKeyVolume);
         }
-        else
-        {
-            AudioSource.PlayClipAtPoint(noKeyClip, transform.position, noKeyVolume);
-        }
-    }
-
-    private void OnQTESuccess()
-    {
-        qteActive = false;
-        unlocked = true;
-        ConsumeKeyIfConfigured();
-
-        PlayUnlockSound();
-
-        // enable hinge interactions
-        foreach (var hi in hingeDoorInteractions)
-        {
-            if (hi != null)
-            {
-                hi.enabled = true;
-                Debug.Log($"DoorLockController: Enabled hinge {hi.gameObject.name} after unlock");
-            }
-        }
-
-        if (autoOpenOnSuccess)
-        {
-            // attempt to call ToggleDoor on each hinge via reflection (works with existing private method)
-            foreach (var hi in hingeDoorInteractions)
-            {
-                if (hi == null) continue;
-                var mi = hi.GetType().GetMethod("ToggleDoor", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
-                if (mi != null) mi.Invoke(hi, null);
-            }
-        }
-
-        ShowPrompt("Unlocked!");
-        // hide prompt after a moment
-        Invoke(nameof(HidePrompt), 2f);
-    }
-
-    private void OnQTEFail()
-    {
-        qteActive = false;
-        ShowPrompt("Failed to unlock!");
-        Invoke(nameof(HidePrompt), 1.5f);
-        Debug.Log("DoorLockController: QTE failed - hinges remain disabled");
-        // optional: you can add enemy alert or penalty here
     }
 
     private void ShowPrompt(string text)
@@ -235,15 +200,10 @@ public class DoorLockController : MonoBehaviour
             promptText.text = text;
             promptText.gameObject.SetActive(true);
         }
-        else if (InteractionPromptUI.Instance != null)
-        {
-            InteractionPromptUI.Instance.Show(text);
-        }
     }
 
     private void HidePrompt()
     {
         if (promptText != null) promptText.gameObject.SetActive(false);
-        else if (InteractionPromptUI.Instance != null) InteractionPromptUI.Instance.Hide();
     }
 }

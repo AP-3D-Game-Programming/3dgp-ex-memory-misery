@@ -2,7 +2,7 @@
 - Project name: 3dgp-ex-memory-misery
 - Unity version: Unity 6000.2.8f1
 - Active game object:
-  - Name: Bathroom
+  - Name: Weeping_angel (1)
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

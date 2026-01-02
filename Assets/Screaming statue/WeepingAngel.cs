@@ -1,130 +1,139 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
-public class WeepingAngel : MonoBehaviour
+public class WeepingAngelAI : MonoBehaviour
 {
-    [Header("Instellingen")]
-    public float moveSpeed = 10f;
-    public float catchDistance = 1.5f;
+    [Header("Settings")]
+    public float moveSpeed = 8.0f;
+    public float catchDistance = 1.2f;
+    public Transform player;
 
-    [Header("Referenties")]
-    public Transform player;         // Sleep je Player hierin
-    public Camera playerCamera;      // Sleep je Main Camera hierin
-    public Renderer enemyRenderer;   // Het plaatje/model van de enemy
+    [Header("Jumpscare & UI")]
+    public GameObject jumpscareFace;    // Het enge plaatje (Eerst)
+    public GameObject deathScreenPanel; // Je bestaande Death Screen (Daarna)
 
-    [Header("Geluid")]
-    public AudioSource moveSound;    // Geluid van schuivend steen (Looping)
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip screamSound;
+
+    [Header("Vision")]
+    public LayerMask obstacleLayer;
 
     private NavMeshAgent agent;
-    private bool isFrozen = false;
+    private Camera cam;
+    private Renderer enemyRenderer;
+    private bool isAttacking = false;
 
-    void Start()
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = moveSpeed;
+        enemyRenderer = GetComponentInChildren<Renderer>();
+        cam = Camera.main;
 
-        // Als referenties leeg zijn, zoek ze zelf
-        if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (playerCamera == null) playerCamera = Camera.main;
-        if (enemyRenderer == null) enemyRenderer = GetComponentInChildren<Renderer>();
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // Zorg dat bij start alles netjes uit staat
+        if (jumpscareFace != null) jumpscareFace.SetActive(false);
+        if (deathScreenPanel != null) deathScreenPanel.SetActive(false);
+
+        agent.speed = 0;
+        agent.enabled = false;
     }
 
-    void Update()
+    private void Update()
     {
-        if (player == null) return;
+        if (isAttacking) return;
 
-        // 1. Check of we gezien worden
-        // Zoek alle lampen in de buurt (simpele versie)
-        SpookyLight lamp = FindObjectOfType<SpookyLight>();
-
-        // Als er een lamp is, EN hij staat uit (Blackout) -> Dan is de Angel NIET zichtbaar
-        bool isDark = (lamp != null && !lamp.GetComponent<Light>().enabled);
-
-        // De Angel is alleen gezien als de camera kijkt EN het licht aan is
-        bool isSeen = CheckIfSeen() && !isDark;
-
-        if (isSeen)
+        if (IsVisibleToPlayer())
         {
-            Freeze();
+            StopMoving();
         }
         else
         {
-            Move();
-        }
-
-        // 2. Check of we de speler hebben gevangen
-        float distance = Vector3.Distance(transform.position, player.position);
-        if (distance < catchDistance && !isSeen)
-        {
-            JumpscareKill();
+            MoveToPlayer();
         }
     }
 
-    void Freeze()
+    bool IsVisibleToPlayer()
     {
-        if (isFrozen) return; // Doe niks als we al stilstaan
+        if (enemyRenderer == null) return false;
 
-        isFrozen = true;
-        agent.isStopped = true; // Stop beweging
-        agent.velocity = Vector3.zero;
+        Vector3 screenPoint = cam.WorldToViewportPoint(transform.position);
+        bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
 
-        // Stop geluid
-        if (moveSound != null) moveSound.Stop();
-    }
+        if (!onScreen) return false;
 
-    void Move()
-    {
-        if (!isFrozen)
-        {
-            // Update bestemming continu (zodat hij niet naar je oude plek loopt)
-            agent.SetDestination(player.position);
-            return;
-        }
-
-        isFrozen = false;
-        agent.isStopped = false;
-
-        // Start geluid
-        if (moveSound != null && !moveSound.isPlaying) moveSound.Play();
-    }
-
-    bool CheckIfSeen()
-    {
-        // A. Is het object überhaupt in beeld van de camera? (Frustum Culling)
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(playerCamera);
-        if (!GeometryUtility.TestPlanesAABB(planes, enemyRenderer.bounds))
-        {
-            return false; // Niet op het scherm
-        }
-
-        // B. Is er een muur tussen ons? (Raycast)
-        // We trekken een lijn van de camera naar het hoofd van de enemy
         RaycastHit hit;
-        Vector3 direction = (enemyRenderer.bounds.center - playerCamera.transform.position).normalized;
+        Vector3 direction = transform.position - cam.transform.position;
 
-        if (Physics.Raycast(playerCamera.transform.position, direction, out hit, 100f))
+        if (Physics.Raycast(cam.transform.position, direction, out hit, Mathf.Infinity, obstacleLayer))
         {
-            // Als we DEZE enemy raken, of een deel ervan, dan zien we hem echt
-            if (hit.transform == transform || hit.transform.IsChildOf(transform))
+            if (hit.transform != transform && !hit.transform.IsChildOf(transform) && !hit.transform.CompareTag("Player"))
             {
-                return true;
+                return false;
             }
         }
-
-        return false; // Wel op scherm, maar achter een muur
+        return true;
     }
 
-    void JumpscareKill()
+    void MoveToPlayer()
     {
-        // Hier roep je jouw bestaande Death Screen logica aan!
-        Debug.Log("JE BENT DOOD - ANGEL HEEFT JE!");
+        if (!agent.enabled) agent.enabled = true;
+        agent.isStopped = false;
+        agent.speed = moveSpeed;
+        agent.SetDestination(player.position);
 
-        // Voorbeeld: Hergebruik je LobbyTrap logica of laad de scene opnieuw
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (Vector3.Distance(transform.position, player.position) < catchDistance)
+        {
+            StartCoroutine(TriggerJumpscare());
+        }
+    }
 
-        // Of activeer je DeathScreen UI script:
-        // FindObjectOfType<LobbyTrap>().ShowDeathScreen(); 
+    void StopMoving()
+    {
+        if (agent.enabled)
+        {
+            agent.isStopped = true;
+            agent.speed = 0;
+            agent.velocity = Vector3.zero;
+        }
+    }
 
-        this.enabled = false; // Stop dit script
+    IEnumerator TriggerJumpscare()
+    {
+        isAttacking = true;
+
+        // 1. Stop de enemy en player controls
+        StopMoving();
+        agent.enabled = false;
+        MonoBehaviour[] scripts = player.GetComponents<MonoBehaviour>();
+        foreach (var script in scripts) { script.enabled = false; }
+
+        // 2. Toon Jumpscare (Enge gezicht)
+        if (jumpscareFace != null) jumpscareFace.SetActive(true);
+
+        // 3. Speel geluid
+        if (audioSource != null && screamSound != null) audioSource.PlayOneShot(screamSound);
+
+        // 4. Wacht 2 seconden (terwijl het spel nog loopt)
+        yield return new WaitForSeconds(2.0f);
+
+        // 5. Verberg jumpscare gezicht (optioneel, anders staat het door je tekst heen)
+        if (jumpscareFace != null) jumpscareFace.SetActive(false);
+
+        // 6. === TOON JE BESTAANDE DEATH SCREEN ===
+        if (deathScreenPanel != null)
+        {
+            deathScreenPanel.SetActive(true);
+        }
+
+        // 7. Pauzeer de game (zodat enemy niet meer beweegt)
+        Time.timeScale = 0f;
+
+        // 8. Maak muis los
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DoorInteraction : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class DoorInteraction : MonoBehaviour
     [Header("Interaction Settings")]
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private KeyCode interactionKey = KeyCode.E;
+
+    [Header("NavMesh")]
+    [SerializeField] private NavMeshObstacle navMeshObstacle;
 
     private Camera playerCamera;
     private Quaternion closedRotation;
@@ -28,6 +32,13 @@ public class DoorInteraction : MonoBehaviour
 
         closedRotation = transform.rotation;
         targetRotation = closedRotation;
+
+        if (navMeshObstacle != null)
+        {
+            navMeshObstacle.carving = true;
+            navMeshObstacle.enabled = true;
+
+        }
     }
 
     private void Update()
@@ -54,6 +65,8 @@ public class DoorInteraction : MonoBehaviour
             {
                 transform.rotation = targetRotation;
                 isRotating = false;
+
+                UpdateNavMeshObstacle();
 
                 Debug.Log("Door finished moving");
             }
@@ -82,6 +95,21 @@ public class DoorInteraction : MonoBehaviour
         isRotating = true;
     }
 
+    void UpdateNavMeshObstacle()
+    {
+        if (navMeshObstacle == null)
+        {
+            return;
+        }
+        if (isOpen)
+        {
+            navMeshObstacle.enabled = false;
+        }
+        else
+        {
+            navMeshObstacle.enabled = true;
+        }
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = playerInRange ? Color.green : Color.yellow;

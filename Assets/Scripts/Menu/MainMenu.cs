@@ -10,9 +10,9 @@ public class MainMenu : MonoBehaviour
     public AudioSource clickSound;
 
     [Header("Camera & Licht Effecten")]
-    public Camera mainCamera;     
-    public Light sceneLight;     
-    public Image whiteFadePanel;  
+    public Camera mainCamera;
+    public Light sceneLight;
+    public Image whiteFadePanel;
     public MenuFlicker flickerScript;
     public float transitionDuration = 2.5f;
 
@@ -29,7 +29,6 @@ public class MainMenu : MonoBehaviour
         if (whiteFadePanel != null)
             whiteFadePanel.color = new Color(1, 1, 1, 0);
 
-        // Onthoud waar de camera start
         if (mainCamera != null)
         {
             camStartPos = mainCamera.transform.position;
@@ -39,6 +38,12 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        // === HIER IS DE FIX VOOR NEW GAME ===
+        // We resetten de cutscene variabele, zodat een nieuwe game
+        // de intro weer gewoon laat zien.
+        IntroSequence.hasPlayed = false;
+        // ====================================
+
         if (clickSound) clickSound.Play();
         StartCoroutine(PlayTransition());
     }
@@ -61,7 +66,7 @@ public class MainMenu : MonoBehaviour
 
         float timer = 0f;
         float startIntensity = sceneLight != null ? sceneLight.intensity : 1f;
-        float targetIntensity = 8000f; 
+        float targetIntensity = 8000f;
 
         while (timer < transitionDuration)
         {
@@ -78,11 +83,8 @@ public class MainMenu : MonoBehaviour
 
             if (mainCamera != null && sceneLight != null)
             {
-               
                 Vector3 targetPos = sceneLight.transform.position - (sceneLight.transform.forward * 0.5f);
-
                 mainCamera.transform.position = Vector3.Lerp(camStartPos, targetPos, curvedProgress);
-
                 Quaternion targetRot = Quaternion.LookRotation(sceneLight.transform.position - mainCamera.transform.position);
                 mainCamera.transform.rotation = Quaternion.Slerp(camStartRot, targetRot, curvedProgress);
             }

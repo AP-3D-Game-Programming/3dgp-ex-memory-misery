@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b351dafec2a982a4f9e9c33a3c32f2ed, type: 3}
   m_Name: CameraItem
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: uv_camera
+  itemName: Camera
   icon: {fileID: 21300000, guid: 6880bee9240fb92439cbb90f9255141b, type: 3}
   description: A description of the item.
   maxStackSize: 1

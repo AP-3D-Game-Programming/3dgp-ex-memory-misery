@@ -94,6 +94,8 @@ public class InventoryManager : MonoBehaviour
                     if (amount <= 0)
                     {
                         OnInventoryChanged?.Invoke();
+                        if (NotificationManager.Instance != null)
+                            NotificationManager.Instance.ShowNotification(itemToAdd);
                         return true;
                     }
                 }
@@ -109,7 +111,8 @@ public class InventoryManager : MonoBehaviour
         }
 
         OnInventoryChanged?.Invoke();
-
+        if (NotificationManager.Instance != null)
+            NotificationManager.Instance.ShowNotification(itemToAdd);
         return amount <= 0;
     }
 

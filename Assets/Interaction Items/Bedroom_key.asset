@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b351dafec2a982a4f9e9c33a3c32f2ed, type: 3}
-  m_Name: Key
+  m_Name: Bedroom_key
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Key
-  icon: {fileID: 21300000, guid: fa1c0fdf0caae8244b697dd8e2280318, type: 3}
+  itemName: Bedroom key
+  icon: {fileID: 21300000, guid: d6a55e57de560f245a4098da5e3e5f02, type: 3}
   description: A key to unlock the door
   maxStackSize: 1
   isKeyItem: 1

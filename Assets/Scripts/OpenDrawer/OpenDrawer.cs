@@ -1,71 +1,32 @@
 ﻿using UnityEngine;
 
-public class OpenDrawer : MonoBehaviour
+public class DrawerController : MonoBehaviour
 {
-    public Animator ANI;
+    [Header("Settings")]
+    public Animator animator;
+    public string openParameter = "isOpen"; // De naam van je Bool in de Animator
 
-    public GameObject openText;
-    public GameObject closedText;
+    [Header("Geluid (Optioneel)")]
+    public AudioSource audioSource;
+    public AudioClip drawerSound;
 
-    private bool open;
-    private bool inReach;
+    private bool isOpen = false;
 
-    public static OpenDrawer current;
-
-    void Start()
+    public void Interact()
     {
-        openText.SetActive(false);
-        closedText.SetActive(false);
+        // Wissel tussen open en dicht
+        isOpen = !isOpen;
 
-        ANI.SetBool("open", false);
-        ANI.SetBool("close", false);
-
-        open = false;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Reach")) return;
-
-        current = this;
-        inReach = true;
-
-        if (!open)
-            openText.SetActive(true);
-        else
-            closedText.SetActive(true);
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Reach")) return;
-
-        if (current == this)
-            current = null;
-
-        inReach = false;
-        openText.SetActive(false);
-        closedText.SetActive(false);
-    }
-
-    public void TryInteract()
-    {
-        if (!inReach) return;
-
-        if (!open)
+        // Stuur dit naar de animator
+        if (animator != null)
         {
-            ANI.SetBool("open", true);
-            ANI.SetBool("close", false);
-            open = true;
-        }
-        else
-        {
-            ANI.SetBool("open", false);
-            ANI.SetBool("close", true);
-            open = false;
+            animator.SetBool(openParameter, isOpen);
         }
 
-        openText.SetActive(false);
-        closedText.SetActive(false);
+        // Speel geluid
+        if (audioSource != null && drawerSound != null)
+        {
+            audioSource.PlayOneShot(drawerSound);
+        }
     }
 }

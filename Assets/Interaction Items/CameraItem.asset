@@ -16,4 +16,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 6880bee9240fb92439cbb90f9255141b, type: 3}
   description: A description of the item.
   maxStackSize: 1
-  isKeyItem: 0
+  isKeyItem: 1

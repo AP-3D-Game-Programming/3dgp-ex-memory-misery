@@ -1,121 +1,63 @@
 using UnityEngine;
-using UnityEngine.AI;
+using System.Collections;
 
 public class DoorInteraction : MonoBehaviour
 {
-    [Header("Door Settings")]
-    [SerializeField] private float openAngle = -90f;
-    [SerializeField] private float openSpeed = 2f;
+    [Header("Instellingen")]
+    public bool reverseRotation = false;
+    public float openAngle = 90f;
+    public float speed = 2f;
 
-    [Header("Interaction Settings")]
-    [SerializeField] private float interactionDistance = 3f;
-    [SerializeField] private KeyCode interactionKey = KeyCode.E;
-
-    [Header("NavMesh")]
-    [SerializeField] private NavMeshObstacle navMeshObstacle;
-
-    private Camera playerCamera;
     private Quaternion closedRotation;
     private Quaternion targetRotation;
     private bool isOpen = false;
-    private bool isRotating = false;
-    private bool playerInRange = false;
+    private bool isMoving = false;
+    private bool initialized = false; // Check of we al gestart zijn
 
-    private void Start()
+    void Awake()
     {
-        playerCamera = Camera.main;
-        if (playerCamera == null)
-        {
-            Debug.LogError("No main camera found!");
-            return;
-        }
-
-        closedRotation = transform.rotation;
-        targetRotation = closedRotation;
-
-        if (navMeshObstacle != null)
-        {
-            navMeshObstacle.carving = true;
-            navMeshObstacle.enabled = true;
-
-        }
+        // We gebruiken Awake i.p.v. Start, zodat dit altijd werkt
+        // ook als het script eerst uit staat.
+        closedRotation = transform.localRotation;
+        initialized = true;
     }
 
-    private void Update()
+    public void ToggleDoor()
     {
-        if (playerCamera == null)
-        {
-            return;
+        Debug.Log("Deur: ToggleDoor is aangeroepen op " + gameObject.name); // <--- DEBUG 1
 
-        }
-        float distance = Vector3.Distance(playerCamera.transform.position, transform.position);
-        playerInRange = distance <= interactionDistance;
+        if (!initialized) closedRotation = transform.localRotation;
+        if (isMoving) return;
 
-        if (playerInRange && Input.GetKeyDown(interactionKey) && !isRotating)
-        {
-            Debug.Log("E button pressed");
-
-            ToggleDoor();
-        }
-        if (isRotating)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * openSpeed);
-
-            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
-            {
-                transform.rotation = targetRotation;
-                isRotating = false;
-
-                UpdateNavMeshObstacle();
-
-                Debug.Log("Door finished moving");
-            }
-        }
-    }
-
-    void ToggleDoor()
-    {
-        if (!isOpen)
-        {
-            Vector3 doorToPlayer = (playerCamera.transform.position - transform.position).normalized;
-            Vector3 doorForward = transform.forward;
-
-            float dot = Vector3.Dot(doorForward, doorToPlayer);
-
-            float angle = dot > 0 ? openAngle : -openAngle;
-            targetRotation = closedRotation * Quaternion.Euler(0, angle, 0);
-
-            isOpen = true;
-        }
-        else
-        {
-            targetRotation = closedRotation;
-            isOpen = false;
-        }
-        isRotating = true;
-    }
-
-    void UpdateNavMeshObstacle()
-    {
-        if (navMeshObstacle == null)
-        {
-            return;
-        }
         if (isOpen)
         {
-            navMeshObstacle.enabled = false;
+            StartCoroutine(RotateDoor(closedRotation));
         }
         else
         {
-            navMeshObstacle.enabled = true;
+            float angle = reverseRotation ? -openAngle : openAngle;
+            Quaternion openRot = closedRotation * Quaternion.Euler(0, angle, 0);
+            StartCoroutine(RotateDoor(openRot));
         }
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = playerInRange ? Color.green : Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactionDistance);
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, transform.forward * 2f);
+        isOpen = !isOpen;
+    }
+
+    IEnumerator RotateDoor(Quaternion target)
+    {
+        Debug.Log("Deur: Start met draaien..."); // <--- DEBUG 2
+        isMoving = true;
+        float time = 0;
+        Quaternion startRot = transform.localRotation;
+
+        while (time < 1)
+        {
+            time += Time.deltaTime * speed;
+            transform.localRotation = Quaternion.Slerp(startRot, target, time);
+            yield return null;
+        }
+
+        isMoving = false;
+        Debug.Log("Deur: Klaar met draaien."); // <--- DEBUG 3
     }
 }

@@ -261,12 +261,4 @@ public class FPController : MonoBehaviour
         }
     }
 
-    public void OnInteract()
-    {
-        // Tell the drawer to try interacting
-        if (OpenDrawer.current != null)
-        {
-            OpenDrawer.current.TryInteract();
-        }
-    }
 }

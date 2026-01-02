@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public static PlayerInteraction Instance; // Singleton zodat de deur erbij kan
+    public static PlayerInteraction Instance;
 
     [Header("Settings")]
     public float interactDistance = 3f;
@@ -15,7 +15,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private Camera cam;
     private ItemPickup currentItem;
-    private DoorController currentDoor; // Nieuw: Onthoud de deur
+
+    // We hebben 'DoorController' weggehaald, want 'DoorLockController' regelt zichzelf nu!
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class PlayerInteraction : MonoBehaviour
         CheckInteraction();
     }
 
-    private void CheckInteraction()
+   private void CheckInteraction()
     {
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         RaycastHit hit;
@@ -44,56 +45,72 @@ public class PlayerInteraction : MonoBehaviour
             currentItem.Highlight(false);
             currentItem = null;
         }
-        currentDoor = null; // Reset deur
+        
         bool showDefaultText = false;
 
+        // Schiet een straal
         if (Physics.Raycast(ray, out hit, interactDistance, interactLayer))
         {
-            // 1. IS HET EEN ITEM?
+            // --- 1. IS HET EEN ITEM? ---
             ItemPickup pickup = hit.collider.GetComponent<ItemPickup>();
             if (pickup != null)
             {
                 currentItem = pickup;
                 currentItem.Highlight(true);
-
                 if (interactText != null)
                 {
                     interactText.text = "Press E to pick up " + pickup.item.itemName;
                     interactText.gameObject.SetActive(true);
                     showDefaultText = true;
                 }
-
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     currentItem.PickUp();
                     interactText.gameObject.SetActive(false);
                 }
-                return; // Stop hier, item heeft voorrang
+                return; 
             }
 
-            // 2. IS HET EEN DEUR?
-            DoorController door = hit.collider.GetComponent<DoorController>();
-            if (door != null)
+            // --- 2. IS HET EEN LADE? ---
+            DrawerController drawer = hit.collider.GetComponent<DrawerController>();
+            if (drawer != null)
             {
-                currentDoor = door;
-
                 if (interactText != null)
                 {
-                    // Toon andere tekst afhankelijk van slot
-                    string action = door.isLocked ? "Unlock" : (door.isLocked ? "Open" : "Open/Close");
-                    interactText.text = "Press E to " + action;
+                    interactText.text = "Press E to Open/Close";
                     interactText.gameObject.SetActive(true);
                     showDefaultText = true;
                 }
-
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))
                 {
-                    door.Interact();
+                    drawer.Interact();
                 }
+                return; 
+            }
+
+            // --- 3. IS HET EEN SLOT (QTE DEUR)? ---
+            // Dit script regelt zijn eigen input/tekst al, dus we doen hier niks.
+            // (Het script op de deur zelf checkt distance en input).
+
+            // --- 4. IS HET EEN SIMPELE DEUR? (NIEUW!) ---
+            SimpleDoorController simpleDoor = hit.collider.GetComponent<SimpleDoorController>();
+            if (simpleDoor != null)
+            {
+                if (interactText != null)
+                {
+                    interactText.text = "Press E to Open/Close";
+                    interactText.gameObject.SetActive(true);
+                    showDefaultText = true;
+                }
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))
+                {
+                    simpleDoor.Interact();
+                }
+                return;
             }
         }
 
-        // Als we niks raken, zet tekst uit (maar alleen als er geen tijdelijke melding is)
+        // Tekst uitzetten als we niks raken
         if (!showDefaultText && !isShowingMessage)
         {
             if (interactText != null) interactText.gameObject.SetActive(false);
@@ -113,13 +130,13 @@ public class PlayerInteraction : MonoBehaviour
         if (interactText != null)
         {
             interactText.text = message;
-            interactText.color = Color.red; // Maak het rood voor de duidelijkheid
+            interactText.color = Color.red;
             interactText.gameObject.SetActive(true);
         }
 
         yield return new WaitForSeconds(2f);
 
-        if (interactText != null) interactText.color = Color.white; // Reset kleur
+        if (interactText != null) interactText.color = Color.white;
         isShowingMessage = false;
     }
 }

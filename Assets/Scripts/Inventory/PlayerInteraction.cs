@@ -1,58 +1,83 @@
 ﻿using UnityEngine;
-using TMPro; // Needed for TextMeshPro
+using TMPro;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    [Header("Settings")]
     public float interactDistance = 3f;
     public LayerMask interactLayer;
 
-    public TMP_Text interactText; // Drag your UI text here in Inspector
+    [Header("UI")]
+    public TMP_Text interactText;
 
     private Camera cam;
+    private ItemPickup currentItem; // Hier onthouden we naar welk item we kijken
 
     private void Start()
     {
         cam = Camera.main;
 
         if (interactText != null)
-            interactText.gameObject.SetActive(false); // Hide text initially
+            interactText.gameObject.SetActive(false);
     }
 
     private void Update()
     {
+        CheckInteraction();
+    }
+
+    private void CheckInteraction()
+    {
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
+        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactLayer))
+        // Schiet de straal
+        if (Physics.Raycast(ray, out hit, interactDistance, interactLayer))
         {
-            ItemPickup pickup = hit.collider.GetComponent<ItemPickup>();
+            ItemPickup newPickup = hit.collider.GetComponent<ItemPickup>();
 
-            if (pickup != null)
+            // Situatie 1: We kijken naar een item
+            if (newPickup != null)
             {
-                // Show the prompt
-                if (interactText != null)
+                // Als we naar een NIEUW item kijken (of we keken eerst naar niks)
+                if (currentItem != newPickup)
                 {
-                    interactText.text = "Press E to pick up";
-                    interactText.gameObject.SetActive(true);
+                    // Zet de vorige uit (als die er was)
+                    if (currentItem != null) currentItem.Highlight(false);
+
+                    // Zet de nieuwe aan
+                    currentItem = newPickup;
+                    currentItem.Highlight(true);
+
+                    // Toon tekst
+                    if (interactText != null)
+                    {
+                        interactText.text = "Press E to pick up " + currentItem.item.itemName; // Tip: toon naam!
+                        interactText.gameObject.SetActive(true);
+                    }
                 }
 
-                // Pick up item on key press
+                // Check voor oppakken
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    pickup.PickUp();
+                    currentItem.PickUp();
+                    ClearCurrentItem(); // Reset alles na oppakken
                 }
-            }
-            else
-            {
-                // Hide if hit something not pickable
-                if (interactText != null)
-                    interactText.gameObject.SetActive(false);
+                return; // Stop hier, we hebben een item gevonden
             }
         }
-        else
+
+        // Situatie 2: We kijken nergens naar, of naar iets dat geen item is
+        ClearCurrentItem();
+    }
+
+    private void ClearCurrentItem()
+    {
+        if (currentItem != null)
         {
-            // Hide when nothing is in range
-            if (interactText != null)
-                interactText.gameObject.SetActive(false);
+            currentItem.Highlight(false);
+            currentItem = null;
         }
+        if (interactText != null) interactText.gameObject.SetActive(false);
     }
 }

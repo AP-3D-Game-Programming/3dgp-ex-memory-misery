@@ -536,10 +536,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &235519774 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4823411492219993037, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -557,10 +558,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!4 &406365256 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3441256781878768571, guid: 0f3a1e7a6d1c7124582bcc8e7c089ce7, type: 3}
@@ -713,10 +715,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!224 &539211618 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6787001308760188142, guid: d056f5d046b2ef048a7bdc815f9b0fa4, type: 3}
@@ -877,10 +880,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &723099518 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5371277726573777638, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -898,10 +902,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &726115518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,10 +1061,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &801414824 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9021716907369824238, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -1077,10 +1083,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!4 &838979132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3576698155909491482, guid: d8e6a8243ae437d4288603d25d371dff, type: 3}
@@ -1103,10 +1110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1001 &938112590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1185,10 +1193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &1055133253 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6396818164692973536, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -1206,10 +1215,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!224 &1079771196 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5291919985102804385, guid: e6e91e3e9ee63b64cb20a1a6eb4995da, type: 3}
@@ -1232,10 +1242,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &1113652990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,27 +1486,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f3a1e7a6d1c7124582bcc8e7c089ce7, type: 3}
---- !u!1 &1323364595 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8883214355687602452, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
-  m_PrefabInstance: {fileID: 2079256670}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1323364597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1323364595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
-  openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
 --- !u!1 &1330360077 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5490803047129856746, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -1513,10 +1503,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &1364329960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8766587063627250290, guid: d056f5d046b2ef048a7bdc815f9b0fa4, type: 3}
@@ -1708,10 +1699,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &1427454766 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8730681515698736623, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -1729,10 +1721,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &1452425196 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2307261256256865681, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -1750,10 +1743,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &1470462392 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5005983905325532081, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -1771,10 +1765,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1001 &1540013168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1937,10 +1932,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1001 &1610021469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2241,10 +2237,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &1811095998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2894308277559412405, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -2262,10 +2259,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &1876856884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2431,10 +2429,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &2000861013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7202463624668338671, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
@@ -2452,10 +2451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1 &2006397822
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,9 +3278,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 725677397096319056, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 873939031}
-    - targetCorrespondingSourceObject: {fileID: 8883214355687602452, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1323364597}
     - targetCorrespondingSourceObject: {fileID: 6867661044245853277, guid: 86af39b36c2b8ae499e49daf24d56268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 224391485}
@@ -3670,10 +3667,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: -90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!1001 &8488411115022214586
 PrefabInstance:
   m_ObjectHideFlags: 0

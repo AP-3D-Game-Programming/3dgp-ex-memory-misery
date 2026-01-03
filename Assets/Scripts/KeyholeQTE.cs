@@ -86,8 +86,7 @@ public class KeyholeQTE : MonoBehaviour
             anchored.x = Mathf.Lerp(left, right, ping);
             icon.anchoredPosition = anchored;
 
-            // === HIER IS DE AANPASSING NAAR MUISKLIK ===
-            if (Input.GetMouseButtonDown(0)) // 0 is Linker Muisknop
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (IsIconInTarget())
                 {
@@ -156,5 +155,17 @@ public class KeyholeQTE : MonoBehaviour
         if (qtePanel != null) qtePanel.SetActive(false);
         running = null;
         onFail?.Invoke();
+    }
+    public void SetKeyImage(Sprite keySprite)
+    {
+        if (icon == null || keySprite == null) return;
+
+        // Zoek het plaatje op het icoon object
+        Image img = icon.GetComponent<Image>();
+
+        if (img != null)
+        {
+            img.sprite = keySprite;
+        }
     }
 }

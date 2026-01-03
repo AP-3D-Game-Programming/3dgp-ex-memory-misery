@@ -5,25 +5,27 @@ using TMPro;
 
 public class DoorLockController : MonoBehaviour
 {
-    [Header("QTE Settings")]
+    [Header("Status")]
+    [Tooltip("Vink AAN als de deur op slot zit. Vink UIT voor een gewone deur.")]
+    public bool isLocked = true;
+
+    [Header("QTE Settings (Alleen als Locked)")]
     public KeyholeQTE qteHandler;
 
     [Header("Interaction UI")]
     public TMP_Text promptText;
     public float interactDistance = 3f;
 
-    [Header("Key / Inventory")]
+    [Header("Key / Inventory (Alleen als Locked)")]
     public bool requireKey = true;
     public ItemData requiredKey;
     public bool consumeKeyOnSuccess = true;
 
-    [Header("Deur Settings")]
+    [Header("Deur Koppeling")]
     public List<DoorInteraction> hingeDoorInteractions = new List<DoorInteraction>();
-    public bool autoOpenOnSuccess = true; // Standaard AAN gezet voor jou
 
     private Camera playerCamera;
     private bool playerInRange = false;
-    public bool unlocked = false;
     private bool qteActive = false;
 
     void Awake()
@@ -36,46 +38,31 @@ public class DoorLockController : MonoBehaviour
             hingeDoorInteractions = GetComponentsInChildren<DoorInteraction>(true).ToList();
         }
 
-        Debug.Log("Slot: Gevonden deuren aantal: " + hingeDoorInteractions.Count); // <--- DEBUG A
+        // Zorg dat deuren die op slot zitten niet per ongeluk bewegen
+        if (isLocked) DisableHingesImmediate();
 
-        DisableHingesImmediate();
         if (promptText != null) promptText.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (unlocked) { HidePrompt(); return; }
         if (playerCamera == null) return;
 
+        // Check afstand
         float dist = Vector3.Distance(playerCamera.transform.position, transform.position);
         playerInRange = dist <= interactDistance;
 
         if (playerInRange)
         {
-            if (HasCorrectKey() || !requireKey)
+            if (isLocked)
             {
-                if (qteActive) { ShowPrompt("Unlocking..."); return; }
-
-                ShowPrompt("Press [E] to attempt unlock");
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if (qteHandler != null && !qteHandler.IsRunning)
-                    {
-                        qteActive = true;
-                        qteHandler.StartQTE(OnQTESuccess, OnQTEFail);
-                        ShowPrompt("Click [Left Mouse] when inside the zone!");
-                    }
-                    else
-                    {
-                        Debug.LogError("Slot: QTE Handler is NIET gekoppeld in Inspector!"); // <--- FOUTMELDING
-                    }
-                }
+                // === SCENARIO A: DEUR ZIT OP SLOT ===
+                HandleLockedDoor();
             }
             else
             {
-                string keyName = requiredKey != null ? requiredKey.itemName : "Key";
-                ShowPrompt("Locked! Need: " + keyName);
+                // === SCENARIO B: DEUR IS OPEN / NORMAAL ===
+                HandleNormalDoor();
             }
         }
         else
@@ -84,58 +71,110 @@ public class DoorLockController : MonoBehaviour
         }
     }
 
-    private void OnQTESuccess()
+    // --- FUNCTIE VOOR GEWONE DEUREN ---
+    void HandleNormalDoor()
     {
-        Debug.Log("Slot: QTE Geslaagd! Deur gaat nu open."); // <--- DEBUG B
+        ShowPrompt("Press [E] to Open/Close");
 
-        qteActive = false;
-        unlocked = true;
-        ConsumeKeyIfConfigured();
-
-        // 1. Scripts aanzetten
-        foreach (var hi in hingeDoorInteractions)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (hi != null) hi.enabled = true;
+            ToggleDoors();
         }
+    }
 
-        // 2. Deuren openen (Directe aanroep, geen reflection meer)
-        if (autoOpenOnSuccess)
+    // --- FUNCTIE VOOR DEUREN OP SLOT ---
+    void HandleLockedDoor()
+    {
+        // 1. Check of we de sleutel hebben
+        if (HasCorrectKey() || !requireKey)
         {
-            if (hingeDoorInteractions.Count == 0)
+            // We hebben de sleutel (of hebben er geen nodig)
+            if (qteActive)
             {
-                Debug.LogError("Slot: ERROR! Geen deuren in de lijst 'Hinge Door Interactions'!"); // <--- FOUTMELDING
+                ShowPrompt("Press [E] when inside zone!"); // AANGEPASTE TEKST
+                return;
             }
 
-            foreach (var hi in hingeDoorInteractions)
+            ShowPrompt("Press [E] to Unlock");
+
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                if (hi != null)
+                // Start de minigame
+                if (qteHandler != null && !qteHandler.IsRunning)
                 {
-                    Debug.Log("Slot: Stuurt signaal naar deur: " + hi.name); // <--- DEBUG C
-                    hi.ToggleDoor();
+                    if (requiredKey != null)
+                    {
+                        qteHandler.SetKeyImage(requiredKey.icon);
+                    }
+                    // ==============================================
+
+                    qteActive = true;
+                    qteHandler.StartQTE(OnQTESuccess, OnQTEFail);
+                }
+                else if (qteHandler == null)
+                {
+                    Debug.LogError("FOUT: Je bent de QTE Handler vergeten te koppelen!");
                 }
             }
         }
+        else
+        {
+            // Geen sleutel
+            string keyName = requiredKey != null ? requiredKey.itemName : "Key";
+            ShowPrompt("Locked! Need: " + keyName);
+        }
+    }
+
+    private void OnQTESuccess()
+    {
+        qteActive = false;
+
+        // DEUR IS NU VAN HET SLOT AF!
+        isLocked = false;
+
+        ConsumeKeyIfConfigured();
+
+        // Activeer de deuren weer en doe ze open
+        foreach (var hi in hingeDoorInteractions) { if (hi != null) hi.enabled = true; }
+        ToggleDoors();
 
         ShowPrompt("Unlocked!");
         Invoke(nameof(HidePrompt), 1.5f);
-        this.enabled = false;
     }
 
-    // --- (Rest van de functies: Fail, KeyChecks, etc. blijven hetzelfde) ---
-    private void OnQTEFail() { qteActive = false; ShowPrompt("Failed!"); Invoke(nameof(HidePrompt), 1.5f); }
+    private void OnQTEFail()
+    {
+        qteActive = false;
+        ShowPrompt("Failed! Try again.");
+        Invoke(nameof(HidePrompt), 1.5f);
+    }
+
+    private void ToggleDoors()
+    {
+        foreach (var hi in hingeDoorInteractions)
+        {
+            if (hi != null) hi.ToggleDoor();
+        }
+    }
+
+    // --- HULP FUNCTIES ---
     private void DisableHingesImmediate() { foreach (var hi in hingeDoorInteractions) { if (hi != null) hi.enabled = false; } }
+
     private bool HasCorrectKey()
     {
         if (!requireKey) return true;
         if (InventoryManager.Instance == null) return false;
         if (requiredKey != null) return InventoryManager.Instance.HasItem(requiredKey);
+        // Fallback: kijk of we 'een' key hebben
         return InventoryManager.Instance.GetInventory().Exists(i => i.itemData != null && i.itemData.isKeyItem);
     }
+
     private void ConsumeKeyIfConfigured()
     {
         if (!requireKey || !consumeKeyOnSuccess) return;
         if (requiredKey != null) InventoryManager.Instance.RemoveItem(requiredKey, 1);
     }
+
     private void ShowPrompt(string text) { if (promptText != null) { promptText.text = text; promptText.gameObject.SetActive(true); } }
     private void HidePrompt() { if (promptText != null) promptText.gameObject.SetActive(false); }
 }

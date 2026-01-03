@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemPickup : MonoBehaviour
 {
+    [Header("Speciale Actie")]
+    public UnityEvent onPickup;
+
     [Header("Item To Pick Up")]
     public ItemData item;
     public int amount = 1;
@@ -30,6 +34,9 @@ public class ItemPickup : MonoBehaviour
         {
             Debug.Log("Inventory full!");
         }
+        if (onPickup != null) onPickup.Invoke();
+
+        Destroy(gameObject);
     }
 
     public void Highlight(bool state)

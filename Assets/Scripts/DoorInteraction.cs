@@ -8,33 +8,40 @@ public class DoorInteraction : MonoBehaviour
     public float openAngle = 90f;
     public float speed = 2f;
 
+    [Header("Geluid")]
+    public AudioSource audioSource; // De speaker
+    public AudioClip doorSound;     // Het krakende geluidje
+
     private Quaternion closedRotation;
-    private Quaternion targetRotation;
     private bool isOpen = false;
     private bool isMoving = false;
-    private bool initialized = false; // Check of we al gestart zijn
+    private bool initialized = false;
 
     void Awake()
     {
-        // We gebruiken Awake i.p.v. Start, zodat dit altijd werkt
-        // ook als het script eerst uit staat.
         closedRotation = transform.localRotation;
         initialized = true;
+
+        // Als je vergeten bent de AudioSource te koppelen, zoekt hij hem zelf
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
     }
 
     public void ToggleDoor()
     {
-        Debug.Log("Deur: ToggleDoor is aangeroepen op " + gameObject.name); // <--- DEBUG 1
-
         if (!initialized) closedRotation = transform.localRotation;
         if (isMoving) return;
 
+        // Speel geluid af (als het er is)
+        PlaySound();
+
         if (isOpen)
         {
+            // Dicht draaien
             StartCoroutine(RotateDoor(closedRotation));
         }
         else
         {
+            // Open draaien
             float angle = reverseRotation ? -openAngle : openAngle;
             Quaternion openRot = closedRotation * Quaternion.Euler(0, angle, 0);
             StartCoroutine(RotateDoor(openRot));
@@ -43,9 +50,18 @@ public class DoorInteraction : MonoBehaviour
         isOpen = !isOpen;
     }
 
+    void PlaySound()
+    {
+        if (audioSource != null && doorSound != null)
+        {
+            // Verander de toonhoogte een klein beetje voor variatie (extra eng)
+            audioSource.pitch = Random.Range(0.8f, 1.1f);
+            audioSource.PlayOneShot(doorSound);
+        }
+    }
+
     IEnumerator RotateDoor(Quaternion target)
     {
-        Debug.Log("Deur: Start met draaien..."); // <--- DEBUG 2
         isMoving = true;
         float time = 0;
         Quaternion startRot = transform.localRotation;
@@ -58,6 +74,5 @@ public class DoorInteraction : MonoBehaviour
         }
 
         isMoving = false;
-        Debug.Log("Deur: Klaar met draaien."); // <--- DEBUG 3
     }
 }

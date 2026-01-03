@@ -252,7 +252,7 @@ MonoBehaviour:
   animator: {fileID: 1031388994977628851}
   openParameter: isOpen
   audioSource: {fileID: 0}
-  drawerSound: {fileID: 0}
+  drawerSound: {fileID: 8300000, guid: 851a1e1506eb559469933a3b02e83dfd, type: 3}
 --- !u!1 &7300952546733746476 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6266820426287967266, guid: e7b53098bed71aa499f22907f391509f, type: 3}

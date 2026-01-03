@@ -872,6 +872,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   interactText: {fileID: 157279275}
+  noteUI: {fileID: 0}
+  noteTextArea: {fileID: 0}
 --- !u!1001 &1610021469
 PrefabInstance:
   m_ObjectHideFlags: 0

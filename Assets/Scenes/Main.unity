@@ -1550,10 +1550,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930c2929d0a9fb43b4026b1cfdafa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
+  reverseRotation: 0
   openAngle: 90
-  openSpeed: 2
-  interactionDistance: 3
-  interactionKey: 114
+  speed: 2
+  audioSource: {fileID: 0}
+  doorSound: {fileID: 0}
 --- !u!65 &1947808849
 BoxCollider:
   m_ObjectHideFlags: 0

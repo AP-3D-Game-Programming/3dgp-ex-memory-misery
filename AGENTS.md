@@ -2,7 +2,7 @@
 - Project name: 3dgp-ex-memory-misery
 - Unity version: Unity 6000.2.8f1
 - Active game object:
-  - Name: Note
+  - Name: Paper (11)
   - Tag: Untagged
-  - Layer: UI
+  - Layer: Player
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

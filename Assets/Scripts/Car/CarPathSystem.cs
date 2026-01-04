@@ -23,10 +23,11 @@ public class CarPathSystem : MonoBehaviour
 
     private int index = 0;
     private bool parked = false;
-    private bool dialogueStarted = false; // Nieuwe variabele om dubbel afspelen te voorkomen
+    private bool dialogueStarted = false;
 
     void Start()
     {
+        // 1. Fade In (Wit naar helder)
         if (whiteFadePanel != null)
         {
             whiteFadePanel.color = Color.white;
@@ -34,21 +35,96 @@ public class CarPathSystem : MonoBehaviour
             whiteFadePanel.CrossFadeAlpha(0, fadeDuration, false);
         }
 
+        // 2. Plan de dialoog in
         if (voiceOver != null)
         {
-            // Start de dialoog na een tijdje, maar via een naam zodat we hem kunnen annuleren
-            Invoke("PlayDialogue", dialogueDelay);
+            Invoke("StartDialogueWrapper", dialogueDelay);
         }
     }
 
-    void PlayDialogue()
+    // Dit is een kleine hulpfuctie omdat Invoke geen Coroutines kan starten
+    void StartDialogueWrapper()
     {
-        // Alleen afspelen als we nog niet geparkeerd zijn EN hij nog niet eerder gestart is
         if (!parked && !dialogueStarted)
         {
-            voiceOver.Play();
-            dialogueStarted = true;
+            StartCoroutine(PlayDialogueSequence());
         }
+    }
+
+    // --- HIER ZIT DE MAGIE VOOR DE ONDERTITELING ---
+    IEnumerator PlayDialogueSequence()
+    {
+        dialogueStarted = true;
+
+        // 1. Start het geluid (Het hele mp3 bestand begint nu te spelen)
+        voiceOver.Play();
+
+        // --- STUKJE 1 ---
+        // "Just breathe. Okay? Just... breathe."
+        // Tekst blijft 4 sec staan. We wachten 4s + 0.5s pauze.
+        SubtitleManager.Instance.ShowSubtitle("Just breathe. Okay? Just... breathe.", 4f);
+        yield return new WaitForSeconds(4.5f);
+
+        // "Keep your eyes on the road. Don't look at the trees. Just drive."
+        // Tekst 4s. Wachten: 4s + 2.5s (grote pauze uit je tekst)
+        SubtitleManager.Instance.ShowSubtitle("Keep your eyes on the road. Don't look at the trees. Just drive.", 3f);
+        yield return new WaitForSeconds(5f);
+
+
+        // --- STUKJE 2 ---
+        // "Ten years... Ten years I stayed away."
+        SubtitleManager.Instance.ShowSubtitle("Ten years... Ten years I stayed away.", 3.5f);
+        yield return new WaitForSeconds(3.0f); // + 1.0s pauze
+
+        // "The doctors said I was CRAZY to obsess over it."
+        SubtitleManager.Instance.ShowSubtitle("The doctors said I was CRAZY to obsess over it.", 3.5f);
+        yield return new WaitForSeconds(3.0f);
+
+        // "'Move on, ALEX...' 'Take the PILLS, ALEX...' 'You're cured, ALEX...'"
+        SubtitleManager.Instance.ShowSubtitle("'Move on, ALEX...' 'Take the PILLS, ALEX...' 'You're cured, ALEX...'", 5f);
+        yield return new WaitForSeconds(5f); // + 1.2s pauze
+
+
+        // --- STUKJE 3 ---
+        // "BULLSHIT!!"
+        SubtitleManager.Instance.ShowSubtitle("BULLSHIT", 2f);
+        yield return new WaitForSeconds(2f); // + 2.0s pauze
+
+        // --- STUKJE 4 ---
+        // "If I'm cured... why do I still smell the BLEACH?"
+        SubtitleManager.Instance.ShowSubtitle("If I'm cured... why do I still smell the BLEACH?", 3.5f);
+        yield return new WaitForSeconds(3.5f); // + 0.5s pauze
+
+        // "Why can I still hear the lock turning in the asylum? EVERY. SINGLE. NIGHT."
+        SubtitleManager.Instance.ShowSubtitle("Why can I still hear the lock turning in the asylum? EVERY. SINGLE. NIGHT.", 5f);
+        yield return new WaitForSeconds(5.5f); // + 3.0s pauze
+
+
+        // --- STUKJE 5 ---
+        // "They LIED. I know they lied. I wasn't SICK when I went in there..."
+        SubtitleManager.Instance.ShowSubtitle("They LIED. I know they lied. I wasn't SICK when I went in there...", 4f);
+        yield return new WaitForSeconds(3.5f); // + 0.8s pauze
+
+        // "...but I was broken when I came out."
+        SubtitleManager.Instance.ShowSubtitle("...but I was broken when I came out.", 3.5f);
+        yield return new WaitForSeconds(4.5f); // + 2.5s pauze
+
+
+        // --- STUKJE 6 ---
+        // "Okay."
+        SubtitleManager.Instance.ShowSubtitle("Okay.", 1.5f);
+        yield return new WaitForSeconds(2.5f); // + 2.0s pauze
+
+
+        // --- STUKJE 7 ---
+        // "No turning back now. Just park the car. Get the files."
+        SubtitleManager.Instance.ShowSubtitle("No turning back now. Just park the car. Get the files.", 10f);
+        yield return new WaitForSeconds(10f);
+
+        // "And get the hell out of there... before you lose your mind again."
+        SubtitleManager.Instance.ShowSubtitle("And get the hell out of there... before you lose your mind again.", 10f);
+
+        // Hierna stopt de tekst vanzelf omdat de ShowSubtitle tijd (4f) voorbij is.
     }
 
     void Update()
@@ -94,8 +170,8 @@ public class CarPathSystem : MonoBehaviour
     {
         parked = true;
 
-        // BELANGRIJK: Stop de timer uit Start() als die nog loopt!
-        CancelInvoke("PlayDialogue");
+        // Stop de timer uit Start() als die nog loopt!
+        CancelInvoke("StartDialogueWrapper");
 
         if (steeringWheel) steeringWheel.localRotation = Quaternion.identity;
 
@@ -110,18 +186,17 @@ public class CarPathSystem : MonoBehaviour
             }
             else if (!dialogueStarted)
             {
-                // Situatie 2: Hij heeft nog NOOIT gespeeld -> Speel hem nu af
-                voiceOver.Play();
-                dialogueStarted = true;
+                // Situatie 2: We zijn er al, maar de dialoog was nog niet begonnen!
+                // Start hem nu alsnog direct
+                StartCoroutine(PlayDialogueSequence());
                 waitTime = voiceOver.clip.length;
             }
-            // Situatie 3: Hij is al klaar met spelen -> Doe niets, ga direct door naar fade out
         }
 
-        // Wacht de berekende tijd
+        // Wacht tot de audio klaar is
         yield return new WaitForSeconds(waitTime);
 
-        // Fade Out
+        // Fade Out (Naar Wit)
         if (whiteFadePanel != null)
         {
             whiteFadePanel.CrossFadeAlpha(1, 2.0f, false);

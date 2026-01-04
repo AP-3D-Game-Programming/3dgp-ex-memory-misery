@@ -15,6 +15,8 @@ public class DoorLockController : MonoBehaviour
     [Header("Interaction UI")]
     public TMP_Text promptText;
     public float interactDistance = 3f;
+    [Tooltip("Hoeveel meter mag de speler hoger of lager staan? (Voorkomt detectie door plafonds)")]
+    public float maxHeightDifference = 1.5f; // NIEUW: Hoogte check
 
     [Header("Key / Inventory (Alleen als Locked)")]
     public bool requireKey = true;
@@ -48,9 +50,14 @@ public class DoorLockController : MonoBehaviour
     {
         if (playerCamera == null) return;
 
-        // Check afstand
+        // 1. Bereken de totale afstand
         float dist = Vector3.Distance(playerCamera.transform.position, transform.position);
-        playerInRange = dist <= interactDistance;
+
+        // 2. Bereken het hoogteverschil (Y-as) - NIEUW
+        float heightDiff = Mathf.Abs(playerCamera.transform.position.y - transform.position.y);
+
+        // 3. We zijn alleen in range als we Dichtbij zijn EN op dezelfde hoogte staan
+        playerInRange = (dist <= interactDistance) && (heightDiff <= maxHeightDifference);
 
         if (playerInRange)
         {
@@ -91,7 +98,7 @@ public class DoorLockController : MonoBehaviour
             // We hebben de sleutel (of hebben er geen nodig)
             if (qteActive)
             {
-                ShowPrompt("Press [E] when inside zone!"); // AANGEPASTE TEKST
+                ShowPrompt("Press [E] when inside zone!");
                 return;
             }
 
@@ -102,18 +109,18 @@ public class DoorLockController : MonoBehaviour
                 // Start de minigame
                 if (qteHandler != null && !qteHandler.IsRunning)
                 {
+                    // Stuur het plaatje van de sleutel naar de minigame
                     if (requiredKey != null)
                     {
                         qteHandler.SetKeyImage(requiredKey.icon);
                     }
-                    // ==============================================
 
                     qteActive = true;
                     qteHandler.StartQTE(OnQTESuccess, OnQTEFail);
                 }
                 else if (qteHandler == null)
                 {
-                    Debug.LogError("FOUT: Je bent de QTE Handler vergeten te koppelen!");
+                    Debug.LogError("FOUT: Je bent de QTE Handler vergeten te koppelen in de Inspector!");
                 }
             }
         }
@@ -122,6 +129,12 @@ public class DoorLockController : MonoBehaviour
             // Geen sleutel
             string keyName = requiredKey != null ? requiredKey.itemName : "Key";
             ShowPrompt("Locked! Need: " + keyName);
+
+            // Laat de speler 'denken' via Ondertiteling (check of SubtitleManager bestaat)
+            if (SubtitleManager.Instance != null && Input.GetKeyDown(KeyCode.E))
+            {
+                SubtitleManager.Instance.ShowSubtitle("Verdomme, hij zit dicht. Ik moet die sleutel zoeken.", 3f);
+            }
         }
     }
 

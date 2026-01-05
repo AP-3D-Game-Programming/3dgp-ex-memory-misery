@@ -89,6 +89,7 @@ public class FPController : MonoBehaviour
     [SerializeField] CinemachineCamera fpCamera;
     [SerializeField] CharacterController characterController;
 
+    [HideInInspector] public bool isPaused = false;
     private void OnValidate()
     {
         if (characterController == null)
@@ -112,6 +113,11 @@ public class FPController : MonoBehaviour
 
     void Update()
     {
+        if (isPaused)
+        {
+            return;
+        }
+
         HandleStamina();
         if (!isHidden)
         {
@@ -123,6 +129,10 @@ public class FPController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (isPaused)
+        {
+            return;
+        }
         LookUpdate();
         CameraUpdate();
     }
@@ -259,6 +269,23 @@ public class FPController : MonoBehaviour
             characterAnimator.SetFloat("Speed", CurrentSpeed);
             characterAnimator.SetBool("IsGrounded", IsGrounded);
         }
+    }
+
+    public void PauseController()
+    {
+        isPaused = true;
+
+        CurrentVelocity = Vector2.zero;
+        CurrentSpeed = 0f;
+        VerticalVelocity = 0f;
+
+        currentLookInput = Vector2.zero;
+        lookInputVelocity = Vector2.zero;
+        LookInput = Vector2.zero;
+    }
+    public void ResumeController()
+    {
+        isPaused = false;
     }
 
 }

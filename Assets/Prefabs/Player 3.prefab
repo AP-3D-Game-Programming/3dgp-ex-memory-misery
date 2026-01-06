@@ -190,6 +190,7 @@ MonoBehaviour:
   stepIntervalSprint: 0.3
   fpCamera: {fileID: 7786058590658428629}
   characterController: {fileID: 6539272693234371434}
+  isPaused: 0
 --- !u!114 &7279677134059978570
 MonoBehaviour:
   m_ObjectHideFlags: 0

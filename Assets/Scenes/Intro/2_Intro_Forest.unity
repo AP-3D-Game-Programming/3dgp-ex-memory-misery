@@ -5592,6 +5592,14 @@ PrefabInstance:
       propertyPath: m_text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4641220230300784590, guid: cb4622441d4339947b9a1809476ec266, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2c32a5aae89726b46b111d0a32d31f8e, type: 2}
+    - target: {fileID: 4641220230300784590, guid: cb4622441d4339947b9a1809476ec266, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7351256244705662186, guid: cb4622441d4339947b9a1809476ec266, type: 3}
       propertyPath: interactText
       value: 
@@ -6709,8 +6717,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d2ba58a62cee69e4db2f4115536428ee, type: 2}
-  m_sharedMaterial: {fileID: -1032457599277177667, guid: d2ba58a62cee69e4db2f4115536428ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2c32a5aae89726b46b111d0a32d31f8e, type: 2}
+  m_sharedMaterial: {fileID: 5309221173906009390, guid: 2c32a5aae89726b46b111d0a32d31f8e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
